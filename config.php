@@ -8,3 +8,7 @@ $config = array(
 		"dbengine" => "mysql",
 	),
 );
+
+$installedapps = array(
+	"testapp"
+);

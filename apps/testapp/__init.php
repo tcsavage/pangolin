@@ -1,3 +1,3 @@
 <?php
 
-require("models/Person.php");
+require("models.php");
