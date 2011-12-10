@@ -2,15 +2,18 @@
 
 use \pangolin;
 
-require("system/Model.php");
+require("config.php");
+require("system/bootstrap.php");
 require("apps/testapp/__init.php");
 
-$tst = "\\testapp\\Person";
+$modelclass = "\\testapp\\Person";
 
 $default = "home";
 
-$url = isset($_GET['url']) ? $_GET['url'] : $default;
+$router = new \pangolin\Router(isset($_GET['url']) ? $_GET['url'] : $default);
 
-$myperson = new $tst($url);
+$myperson = new $modelclass("Tom Savage");
 
-echo($myperson->name);
+echo($myperson->name . " " . $config["development"]["dbname"]);
+
+print_r($router->getUrlElms());
