@@ -16,7 +16,7 @@ class NumericalField extends Field
 	
 	public function setValue($value)
 	{
-		if (($this->min != null || $this->max != null) && $value >= $this->min && $value <= $this->max)
+		if (($this->min === null || $value >= $this->min) && ($this->max === null || $value <= $this->max))
 		{
 			parent::setValue($value);
 		}

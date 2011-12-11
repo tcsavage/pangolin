@@ -18,3 +18,8 @@ $myperson = new $modelclass("Tom Savage", 20, "tcsavage@gmail.com");
 echo($myperson->name);
 $myperson->name = "New namevvvbvcxdfhjkjgfghjdcfhjcxhjk";
 echo($myperson->name);
+
+echo($myperson->age);
+$myperson->age = 18;
+echo($myperson->age);
+
