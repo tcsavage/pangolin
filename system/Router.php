@@ -4,9 +4,10 @@ class Router
 {
 	private $url = "";
 
-	public function __construct($url)
+	public function __construct($url, $routes)
 	{
 		$this->url = $url;
+		$routes[$url]();
 	}
 	
 	public function getUrl()
