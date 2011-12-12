@@ -5,21 +5,11 @@
 require("config.php");
 require("routes.php");
 require("system/bootstrap.php");
-require("apps/testapp/__init.php");
+require("testapp/__init.php");
+
+$link = mysql_connect('localhost', $config["development"]["dbuser"], $config["development"]["dbpass"]);
+mysql_select_db($config["development"]["dbname"]);
 
 $modelclass = "\\testapp\\Person";
 
-$default = "home";
-
-$router = new \pangolin\Router(isset($_GET['url']) ? $_GET['url'] : $default, $routes);
-
-$myperson = new $modelclass("Tom Savage", 20, "tcsavage@gmail.com");
-
-echo($myperson->name);
-$myperson->name = "New namevvvbvcxdfhjkjgfghjdcfhjcxhjk";
-echo($myperson->name);
-
-echo($myperson->age);
-$myperson->age = 18;
-echo($myperson->age);
-
+$router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);

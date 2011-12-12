@@ -5,7 +5,10 @@ abstract class Model
 {
 	// Stores all the model properties. Facilitates magic.
 	private $properties = array();
-
+	
+	// Ros ID.
+	public $id;
+	
 	// Constructor. Has magic properties.
 	public function __construct()
 	{
@@ -60,5 +63,35 @@ abstract class Model
 			' on line ' . $trace[0]['line'],
 			E_USER_NOTICE);
 		return null;
+	}
+	
+	private static function tableName()
+	{
+		$classname = get_called_class();
+		$nsarray = explode("\\", $classname);
+		$tablename = end($nsarray);
+		return $tablename;
+	}
+	
+	public static function getAll()
+	{
+		$tablename = self::tableName();
+		$classname = get_called_class();
+		$query = new SQLQuery($tablename);
+		$results = $query->run();
+		
+		$list = new ObjectList();
+		
+		foreach ($results as $row)
+		{
+			$model = new $classname();
+			foreach ($row as $field => $value)
+			{
+				$model->$field = $value;
+			}
+			$list[] = $model;
+		}
+		
+		return $list;
 	}
 }

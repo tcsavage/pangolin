@@ -2,9 +2,9 @@
 
 $config = array(
 	"development" => array(
-		"dbuser" => "tcsavage",
+		"dbuser" => "root",
 		"dbpass" => "",
-		"dbname" => "pangolin_dev",
+		"dbname" => "pangolin_test",
 		"dbengine" => "mysql",
 	),
 );
