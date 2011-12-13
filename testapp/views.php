@@ -13,5 +13,6 @@ function index()
 
 function action1()
 {
-	echo("Action 1");
+	$person = Person::getID(2);
+	echo($person->name);
 }

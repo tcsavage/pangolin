@@ -8,11 +8,18 @@ class SQLQuery
 	public function __construct($table)
 	{
 		$this->base = "SELECT * FROM " . $table;
+		
 	}
 	
 	public function run()
 	{
-		$res = mysql_query($this->base);
+		$query = $this->base;
+		if ($this->where != "")
+		{
+			$query .= " WHERE" . $this->where;
+		}
+		
+		$res = mysql_query($query);
 		if (!$res)
 		{
 			echo "Could not successfully run query ($sql) from DB: " . mysql_error();
@@ -27,6 +34,14 @@ class SQLQuery
 			}
 			
 			return $results;
+		}
+	}
+	
+	public function where($array)
+	{
+		foreach ($array as $field => $value)
+		{
+			$this->where .= " " . $field . " = " . $value;
 		}
 	}
 }

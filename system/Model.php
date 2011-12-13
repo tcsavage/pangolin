@@ -94,4 +94,21 @@ abstract class Model
 		
 		return $list;
 	}
+	
+	public static function getId($id)
+	{
+		$tablename = self::tableName();
+		$classname = get_called_class();
+		$query = new SQLQuery($tablename);
+		$query->where(array("id" => $id));
+		$results = $query->run();
+		
+		$model = new $classname();
+		foreach ($results[0] as $field => $value)
+		{
+			$model->$field = $value;
+		}
+		
+		return $model;
+	}
 }

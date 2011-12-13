@@ -7,9 +7,10 @@ class Router
 	public function __construct($url, $routes)
 	{
 		$this->url = rtrim($url,"/");
-		foreach ($routes as $regex => $action)
+		foreach ($routes as $pattern => $action)
 		{
-			if (preg_match($regex, $this->url))
+			$regex = $pattern;
+			if (preg_match("~" . $regex . "~", $this->url))
 			{
 				$action();
 				return;

@@ -1,6 +1,6 @@
 <?php
 
 $routes = array(
-	"/^testapp$/" => "\\testapp\\action1",
-	"/^$/" => "\\testapp\\index"
+	"^testapp/{num:id}$" => "\\testapp\\action1",
+	"^$" => "\\testapp\\index"
 );
