@@ -22,7 +22,7 @@ class SQLQuery
 		$res = mysql_query($query);
 		if (!$res)
 		{
-			echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+			echo "Could not successfully run query ($query) from DB: " . mysql_error();
 		}
 		else
 		{
@@ -41,7 +41,7 @@ class SQLQuery
 	{
 		foreach ($array as $field => $value)
 		{
-			$this->where .= " " . $field . " = " . $value;
+			$this->where .= " " . $field . " = " . (is_string($value) ? "'" . $value . "'" : $value);
 		}
 	}
 }

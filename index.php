@@ -7,9 +7,9 @@ require("routes.php");
 require("system/bootstrap.php");
 require("testapp/__init.php");
 
-$link = mysql_connect('localhost', $config["development"]["dbuser"], $config["development"]["dbpass"]);
-mysql_select_db($config["development"]["dbname"]);
-
-$modelclass = "\\testapp\\Person";
+$db = new \pangolin\Database($dbconfig["development"]);
+$db->connect();
 
 $router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
+
+\pangolin\Database::disconnectAll();

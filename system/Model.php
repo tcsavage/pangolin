@@ -95,6 +95,29 @@ abstract class Model
 		return $list;
 	}
 	
+	public static function getWhere($where)
+	{
+		$tablename = self::tableName();
+		$classname = get_called_class();
+		$query = new SQLQuery($tablename);
+		$query->where($where);
+		$results = $query->run();
+		
+		$list = new ObjectList();
+		
+		foreach ($results as $row)
+		{
+			$model = new $classname();
+			foreach ($row as $field => $value)
+			{
+				$model->$field = $value;
+			}
+			$list[] = $model;
+		}
+		
+		return $list;
+	}
+	
 	public static function getId($id)
 	{
 		$tablename = self::tableName();
@@ -102,13 +125,18 @@ abstract class Model
 		$query = new SQLQuery($tablename);
 		$query->where(array("id" => $id));
 		$results = $query->run();
-		
-		$model = new $classname();
-		foreach ($results[0] as $field => $value)
+		if (!$results)
 		{
-			$model->$field = $value;
+			return False;
 		}
-		
-		return $model;
+		else
+		{
+			$model = new $classname();
+			foreach ($results[0] as $field => $value)
+			{
+				$model->$field = $value;
+			}
+			return $model;
+		}
 	}
 }

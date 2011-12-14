@@ -1,11 +1,12 @@
 <?php
 
-$config = array(
+$dbconfig = array(
 	"development" => array(
-		"dbuser" => "root",
-		"dbpass" => "",
-		"dbname" => "pangolin_test",
-		"dbengine" => "mysql",
+		"user" => "root",
+		"pass" => "",
+		"name" => "pangolin_test",
+		"engine" => "mysql",
+		"host" => "localhost",
 	),
 );
 

@@ -11,8 +11,20 @@ function index()
 	echo("</ul>");
 }
 
-function action1()
+function action1($vars)
 {
-	$person = Person::getID(2);
-	echo($person->name);
+	$person = Person::getID($vars["id"]);
+	if (!$person)
+	{
+		echo("Can't find ID " . $vars["id"]);
+	}
+	else
+	{
+		echo($person->name);
+	}
+}
+
+function action2()
+{
+	echo("Test");
 }
