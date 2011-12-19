@@ -13,3 +13,5 @@ $db->connect();
 $router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
 
 \pangolin\Database::disconnectAll();
+
+$tmp = new \pangolin\Template("template.html");
