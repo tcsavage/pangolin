@@ -70,7 +70,7 @@ abstract class Model
 		$classname = get_called_class();
 		$nsarray = explode("\\", $classname);
 		$tablename = end($nsarray);
-		return $tablename;
+		return strtolower($tablename);
 	}
 	
 	public static function getAll()
