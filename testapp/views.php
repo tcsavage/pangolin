@@ -3,12 +3,9 @@
 function index()
 {
 	$people = Person::getAll();
-	echo("<ul>");
-	foreach ($people as $p)
-	{
-		echo("<li>" . $p->name . "</li>");
-	}
-	echo("</ul>");
+	$template = new \pangolin\Template;
+	$template->assign("people", $people);
+	$template->render("test", $people);
 }
 
 function action1($vars)
