@@ -3,7 +3,7 @@
 class Database
 {
 	private $config;
-	private $link;
+	public $link;
 	
 	private static $links = array();
 	
@@ -14,29 +14,29 @@ class Database
 	
 	public function connect()
 	{
-		$this->link = mysql_connect($this->config["host"], $this->config["user"], $this->config["pass"]);
-		self::$links[] = $this->link;
-		if (!$this->link)
+		foreach ( $this->config as $key => $value ) { $$key = $value; } // Get all the config vars out of the array.
+		try
 		{
-			die('Could not connect: ' . mysql_error());
+			$this->link = new \PDO("$engine:host=$host;dbname=$name", $user, $pass);
+			self::$links[] = $this->link;
+			$this->link->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		}
-		mysql_select_db($this->config["name"]);
+		catch(PDOException $e)
+		{
+			die("Connection to database failed: " . $e->getMessage());
+		}
 	}
 	
 	public function disconnect()
 	{
-		mysql_close($this->link);
-		foreach(self::$links as $key => $value)
-		{
-			if ($value == $this->link) unset(self::$links[$key]);
-		}
+		$this->link = null;
 	}
 	
 	public static function disconnectAll()
 	{
 		foreach(self::$links as $link)
 		{
-			mysql_close($link);
+			$link = null;
 		}
 	}
 }

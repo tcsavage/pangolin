@@ -5,7 +5,7 @@ function index()
 	$people = Person::getAll();
 	$template = new \pangolin\Template;
 	$template->assign("people", $people);
-	$template->render("test", $people);
+	$template->render("test");
 }
 
 function action1($vars)

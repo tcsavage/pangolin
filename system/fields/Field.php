@@ -7,6 +7,7 @@ abstract class Field
 	private $nullable = True;
 	private $autoincrement = False;
 	
+	private $name = null;
 	private $value = null;
 	
 	public function __construct($options, $value)
@@ -27,5 +28,20 @@ abstract class Field
 	public function setValue($value)
 	{
 		$this->value = $value;
+	}
+
+	public function renderInput()
+	{
+		return "";
+	}
+
+	public function SQLType()
+	{
+		return "";
+	}
+
+	public function renderSQLDef()
+	{
+		return "";
 	}
 }

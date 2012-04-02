@@ -75,10 +75,12 @@ abstract class Model
 	
 	public static function getAll()
 	{
+		global $db;
 		$tablename = self::tableName();
 		$classname = get_called_class();
-		$query = new SQLQuery($tablename);
-		$results = $query->run();
+		$query = new SQLQuery($db);
+		$query = $query->selectAll()->from($tablename);
+		$results = $query->fetchAll();
 		
 		$list = new ObjectList();
 		

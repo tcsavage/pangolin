@@ -1,47 +1,107 @@
 <?php namespace pangolin;
 
+// SQL query builder class.
+// Each method returns the object so you can build querys thus: $query = new SQLQuery($db); $query->selectAll()->from("people").
 class SQLQuery
 {
-	public $base = "";
-	public $where = "";
+	private $database = null;
+	private $table = null;
+	private $type = null;
+	private $columns = array();
+	private $where = null;
 	
-	public function __construct($table)
+	public function __construct($database)
 	{
-		$this->base = "SELECT * FROM " . $table;
-		
-	}
-	
-	public function run()
-	{
-		$query = $this->base;
-		if ($this->where != "")
+		if ($database)
 		{
-			$query .= " WHERE" . $this->where;
-		}
-		
-		$res = mysql_query($query);
-		if (!$res)
-		{
-			echo "Could not successfully run query ($query) from DB: " . mysql_error();
+			$this->database = $database;
 		}
 		else
 		{
-			$results = array();
-			
-			while ($row = mysql_fetch_assoc($res))
-			{
-				$results[] = $row;
-			}
-			
-			return $results;
+			throw new Exception('No database given.');
 		}
 	}
-	
-	public function where($array)
+
+	public function from($table)
 	{
-		foreach ($array as $field => $value)
+		$this->table = $table;
+
+		return $this;
+	}
+
+	public function selectAll()
+	{
+		$this->type = "SELECT";
+		$this->columns[] = "*";
+
+		return $this;
+	}
+
+	public function select($columns)
+	{
+		$this->type = "SELECT";
+		$this->columns = array_merge($this->columns, $columns);
+
+		return $this;
+	}
+
+	public function where($columnorarray, $value = null)
+	{
+		// Initialize where array.
+		if (!$this->where)
 		{
-			$this->where .= " " . $field . " = " . (is_string($value) ? "'" . $value . "'" : $value);
+			$this->where = array();
 		}
+
+		// Handle arrays.
+		if (is_array($columnorarray))
+		{
+			if (!is_array($columnorarray[0]))
+			{
+				throw new Exception('Invalid parameter.');
+			}
+			else
+			{
+				$this->where[] = "$columnorarray[0] = $columnorarray[1]";
+			}
+		}
+		else
+		{
+			$this->where[] = "$columnorarray = $value";
+		}
+
+		return $this;
+	}
+	
+	public function build()
+	{
+		$query = "";
+
+		$columns = implode(", ", $this->columns);
+
+		switch($this->type)
+		{
+			case "SELECT":
+				$query .= "SELECT $columns FROM $this->table";
+				if ($this->where)
+				{
+					$query .= " WHERE " . implode(" AND ", $this->where);
+
+				}
+				break;
+			default:
+				throw new Exception('Invalid query type.');
+				break;
+		}
+
+		return $query;
+	}
+
+	public function fetchAll()
+	{
+		$statement = $this->database->link->prepare($this->build());
+		$statement->execute();
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		return $statement->fetchAll();
 	}
 }
