@@ -11,7 +11,8 @@ $dbconfig = array(
 );
 
 $installedapps = array(
-	"testapp"
+	"testapp",
+	"admin"
 );
 
 $warninglevel = 3;
