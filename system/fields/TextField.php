@@ -28,8 +28,8 @@ class TextField extends Field
 	{
 		$elems = array();
 		$elems[] = $this->name;
-		$elems[] = SQLType() . '(' . $this->maxlength . ')';
-		if (!$this->nullable) $elems[] = 'NOT NULL';
+		$elems[] = $this->SQLType() . '(' . $this->maxlength . ')';
+		$elems[] = ($this->nullable) ? 'DEFAULT NULL' : 'NOT NULL';
 		if ($this->autoincrement) $elems[] = 'AUTO_INCREMENT';
 		if ($this->primarykey) $elems[] = ', PRIMARY KEY(' . $this->name . ')';
 		return implode(' ', $elems);

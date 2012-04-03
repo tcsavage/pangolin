@@ -6,12 +6,14 @@ abstract class Model
 	// Stores all the model properties. Facilitates magic.
 	private $properties = array();
 	
-	// Ros ID.
+	// Row ID.
 	public $id;
 	
 	// Constructor. Has magic properties.
 	public function __construct()
 	{
+		$this->id = new \pangolin\NumericalField(array("autoincrement" => True, "primarykey" => True), null);
+
 		// Grab all the variables defined in the class and loop over them.
 		$properties = get_object_vars($this);
 		foreach ($properties as $name => $value)
@@ -20,6 +22,7 @@ abstract class Model
 			if ($name != "properties")
 			{
 				// Add the property to the array.
+				$value->name = $name;
 				$this->properties[$name] = $value;
 				
 				// Unset it so we can use __get and __set.
@@ -71,6 +74,23 @@ abstract class Model
 		$nsarray = explode("\\", $classname);
 		$tablename = end($nsarray);
 		return strtolower($tablename);
+	}
+
+	public static function buildSQLCreate()
+	{
+		global $db;
+		$classname = get_called_class();
+		$tempObj = new $classname();
+		$tablename = self::tableName();
+		$columns = array();
+		foreach ($tempObj->properties as $property)
+		{
+			$columns[] = $property->renderSQLDef();
+		}
+		$query = new SQLQuery($db);
+		$query = $query->createTable($tablename, $columns);
+
+		return $query;
 	}
 	
 	public static function getAll()

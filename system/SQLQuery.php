@@ -18,13 +18,22 @@ class SQLQuery
 		}
 		else
 		{
-			throw new Exception('No database given.');
+			throw new \Exception('No database given.');
 		}
 	}
 
 	public function from($table)
 	{
 		$this->table = $table;
+
+		return $this;
+	}
+
+	public function createTable($table, $columns)
+	{
+		$this->type = "CREATE TABLE";
+		$this->table = $table;
+		$this->columns = $columns;
 
 		return $this;
 	}
@@ -89,8 +98,13 @@ class SQLQuery
 
 				}
 				break;
+			case "CREATE TABLE":
+				$query .= "CREATE TABLE $this->table (";
+				$query .= implode(", ", $this->columns);
+				$query .= ")";
+				break;
 			default:
-				throw new Exception('Invalid query type.');
+				throw new \Exception("Invalid query type ($this->type).");
 				break;
 		}
 
@@ -99,9 +113,17 @@ class SQLQuery
 
 	public function fetchAll()
 	{
-		$statement = $this->database->link->prepare($this->build());
-		$statement->execute();
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		try
+		{
+			$statement = $this->database->link->prepare($this->build());
+			$statement->execute();
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		}
+		catch(\PDOException $e)
+		{
+			die("Database query failed: " . $e->getMessage());
+		}
+		
 		return $statement->fetchAll();
 	}
 }

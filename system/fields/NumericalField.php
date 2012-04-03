@@ -21,4 +21,20 @@ class NumericalField extends Field
 			parent::setValue($value);
 		}
 	}
+
+	public function SQLType()
+	{
+		return "INT";
+	}
+
+	public function renderSQLDef()
+	{
+		$elems = array();
+		$elems[] = $this->name;
+		$elems[] = $this->SQLType() . '(11)';
+		$elems[] = ($this->nullable) ? 'DEFAULT NULL' : 'NOT NULL';
+		if ($this->autoincrement) $elems[] = 'AUTO_INCREMENT';
+		if ($this->primarykey) $elems[] = ', PRIMARY KEY(' . $this->name . ')';
+		return implode(' ', $elems);
+	}
 }

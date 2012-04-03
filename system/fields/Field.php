@@ -2,12 +2,12 @@
 
 abstract class Field
 {
-	private $primarykey = False;
-	private $foreignkey = null;
-	private $nullable = True;
-	private $autoincrement = False;
+	public $primarykey = False;
+	public $foreignkey = null;
+	public $nullable = True;
+	public $autoincrement = False;
 	
-	private $name = null;
+	public $name = null;
 	private $value = null;
 	
 	public function __construct($options, $value)

@@ -11,6 +11,7 @@ class Template
 	public function __construct()
 	{
 		if (self::$smarty == null) self::$smarty = new \Smarty();
+		self::$smarty->addTemplateDir(array(ROOT . "/templates/"));
 	}
 
 	public function assign($key, $var)
@@ -25,6 +26,12 @@ class Template
 			self::$smarty->assign($key, $value);
 		}
 
-		self::$smarty->display(ROOT."/templates/".$name.".tpl");
+		self::$smarty->display($name.".tpl");
+	}
+
+	public static function addTemplateDir($string)
+	{
+		if (self::$smarty == null) self::$smarty = new \Smarty();
+		self::$smarty->addTemplateDir($string);
 	}
 }
