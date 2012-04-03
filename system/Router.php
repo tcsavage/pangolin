@@ -32,13 +32,24 @@ class Router
 			$regex = "";
 			
 			// For each segment...
-			foreach ($patternsegments as $seg)
+			foreach ($patternsegments as $i => $seg)
 			{
+				if (count($this->segments) < $i)
+				{
+					echo("Break");
+					break;
+				}
+
+				if ($seg != $this->segments[$i])
+				{
+					break;
+				}
+
 				// See if it's a variable.
 				if (preg_match("~^\{.*\}$~", $seg))
 				{
 					$varname = substr($seg, 1, strlen($seg)-2);
-					$this->actionvars[$varname] = $this->segments[array_search($seg, $patternsegments)];
+					$this->actionvars[$varname] = $this->segments[$i];
 					$seg = ".*";
 				}
 				$regex .= "/" . $seg;
@@ -46,6 +57,8 @@ class Router
 			$regex = substr($regex, 1);
 			if (preg_match("~^" . $regex . "$~", $this->url))
 			{
+				$appAction = explode("\\", $action);
+				Template::addTemplateDir(ROOT . "/$appAction[1]/templates");
 				$action($this->actionvars);
 				return;
 			}
