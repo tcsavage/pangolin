@@ -3,7 +3,6 @@
 //use \pangolin;
 
 define("ROOT",str_replace("\\","/",__DIR__));
-echo(ROOT);
 
 require("config.php");
 require("routes.php");
@@ -20,5 +19,3 @@ $db->connect();
 $router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
 
 \pangolin\Database::disconnectAll();
-
-//$tmp = new \pangolin\Template("template.html");
