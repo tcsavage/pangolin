@@ -8,6 +8,13 @@ function index()
 	$template->render("test");
 }
 
+function add($vars)
+{
+	$template = new \pangolin\Template;
+	$template->assign("people", $people);
+	$template->render("add");
+}
+
 function action1($vars)
 {
 	$person = Person::getID($vars["id"]);
