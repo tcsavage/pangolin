@@ -67,6 +67,11 @@ abstract class Model
 			E_USER_NOTICE);
 		return null;
 	}
+
+	public static function name()
+	{
+		return get_called_class();
+	}
 	
 	private static function tableName()
 	{

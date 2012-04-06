@@ -74,6 +74,9 @@
 			<ul class="nav nav-list">
 				{foreach $apps as $app}
 				<li class="nav-header">{$app->appName}</li>
+				{foreach $app->models as $model}
+				<li><a href="#">Manage {$model.class|pluralize|capitalize}</a></li>
+				{/foreach}
 				{/foreach}
 			  <li class="nav-header">Blog</li>
 			  <li class="active"><a href="#">Dashboard</a></li>

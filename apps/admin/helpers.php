@@ -10,6 +10,7 @@ function getInstalledApps()
 	{
 		$config = json_decode(file_get_contents(ROOT . "/apps/$app/config.json"));
 		$config->appDir = $app;
+		$config->models = Site::getAppModels($app);
 		$apps[] = $config;
 	}
 	return $apps;
