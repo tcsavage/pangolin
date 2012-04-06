@@ -8,6 +8,7 @@ abstract class Field
 	public $autoincrement = False;
 	
 	public $name = null;
+	public $prettyname = null;
 	private $value = null;
 	
 	public function __construct($options, $value)
@@ -16,6 +17,7 @@ abstract class Field
 		if (isset($options["foreignkey"])) $this->foreign = $options["foreignkey"];
 		if (isset($options["nullable"])) $this->nullable = $options["nullable"];
 		if (isset($options["autoincrement"])) $this->autoincrement = $options["autoincrement"];
+		if (isset($options["prettyname"])) $this->prettyname = $options["prettyname"];
 		
 		$this->value = $value;
 	}
