@@ -1,6 +1,7 @@
 <?php namespace pangolin;
 
 require_once("lib/smarty/Smarty.class.php");
+require_once("smartyPlugins.php");
 
 class Template
 {
@@ -12,6 +13,8 @@ class Template
 	{
 		if (self::$smarty == null) self::$smarty = new \Smarty();
 		self::$smarty->addTemplateDir(array(ROOT . "/templates/"));
+
+		self::$smarty->registerPlugin("modifier","pluralize", "smarty_modifier_pluralize");
 	}
 
 	public function assign($key, $var)
