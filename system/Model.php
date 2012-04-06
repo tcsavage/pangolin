@@ -22,8 +22,8 @@ abstract class Model
 			if ($name != "properties")
 			{
 				// Add the property to the array.
-				$value->name = $name;
 				$this->properties[$name] = $value;
+				$this->properties[$name]->name = $name;
 				
 				// Unset it so we can use __get and __set.
 				unset($this->$name);
@@ -123,7 +123,7 @@ abstract class Model
 		$classname = get_called_class();
 		$query = new SQLQuery($tablename);
 		$query->where($where);
-		$results = $query->run();
+		$results = $query->fetchAll();
 		
 		$list = new ObjectList();
 		
@@ -142,19 +142,20 @@ abstract class Model
 	
 	public static function getId($id)
 	{
+		global $db;
 		$tablename = self::tableName();
 		$classname = get_called_class();
-		$query = new SQLQuery($tablename);
-		$query->where(array("id" => $id));
-		$results = $query->run();
-		if (!$results)
+		$query = new SQLQuery($db);
+		$query = $query->selectAll()->from($tablename)->where("id", $id);
+		$result = $query->fetch();
+		if (!$result)
 		{
 			return False;
 		}
 		else
 		{
 			$model = new $classname();
-			foreach ($results[0] as $field => $value)
+			foreach ($result as $field => $value)
 			{
 				$model->$field = $value;
 			}

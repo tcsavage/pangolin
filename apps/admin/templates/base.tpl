@@ -8,7 +8,7 @@
 	<meta name="author" content="">
 
 	<!-- Le styles -->
-	<link href="static/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
 	<style type="text/css">
 	  body {
 		padding-top: 60px;
@@ -18,7 +18,7 @@
 		padding: 9px 0;
 	  }
 	</style>
-	<link href="static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 	<!--[if lt IE 9]>
@@ -72,6 +72,9 @@
 		<div class="span3">
 		  <div class="well sidebar-nav">
 			<ul class="nav nav-list">
+				{foreach $apps as $app}
+				<li class="nav-header">{$app->appName}</li>
+				{/foreach}
 			  <li class="nav-header">Blog</li>
 			  <li class="active"><a href="#">Dashboard</a></li>
 			  <li><a href="#">Manage Posts</a></li>
@@ -140,18 +143,18 @@
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="static/bootstrap/js/jquery.js"></script>
-	<script src="static/bootstrap/js/bootstrap-transition.js"></script>
-	<script src="static/bootstrap/js/bootstrap-alert.js"></script>
-	<script src="static/bootstrap/js/bootstrap-modal.js"></script>
-	<script src="static/bootstrap/js/bootstrap-dropdown.js"></script>
-	<script src="static/bootstrap/js/bootstrap-scrollspy.js"></script>
-	<script src="static/bootstrap/js/bootstrap-tab.js"></script>
-	<script src="static/bootstrap/js/bootstrap-tooltip.js"></script>
-	<script src="static/bootstrap/js/bootstrap-popover.js"></script>
-	<script src="static/bootstrap/js/bootstrap-button.js"></script>
-	<script src="static/bootstrap/js/bootstrap-collapse.js"></script>
-	<script src="static/bootstrap/js/bootstrap-carousel.js"></script>
-	<script src="static/bootstrap/js/bootstrap-typeahead.js"></script>
+	<script src="/static/bootstrap/js/jquery.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-transition.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-alert.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-modal.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-tab.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-popover.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-button.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
+	<script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
   </body>
 </html>

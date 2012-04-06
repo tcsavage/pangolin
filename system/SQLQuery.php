@@ -65,13 +65,9 @@ class SQLQuery
 		// Handle arrays.
 		if (is_array($columnorarray))
 		{
-			if (!is_array($columnorarray[0]))
+			foreach ($columnorarray as $column => $value)
 			{
-				throw new Exception('Invalid parameter.');
-			}
-			else
-			{
-				$this->where[] = "$columnorarray[0] = $columnorarray[1]";
+				$this->where[] = "$column = $value";
 			}
 		}
 		else
@@ -125,5 +121,21 @@ class SQLQuery
 		}
 		
 		return $statement->fetchAll();
+	}
+
+	public function fetch()
+	{
+		try
+		{
+			$statement = $this->database->link->prepare($this->build());
+			$statement->execute();
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		}
+		catch(\PDOException $e)
+		{
+			die("Database query failed: " . $e->getMessage());
+		}
+		
+		return $statement->fetch();
 	}
 }

@@ -4,17 +4,18 @@
 
 define("ROOT",str_replace("\\","/",__DIR__));
 
-require("config.php");
-require("routes.php");
-require("system/bootstrap.php");
-
-foreach ($installedapps as $app)
-{
-	require($app."/__init.php");
-}
+require_once("config.php");
+require_once("system/bootstrap.php");
 
 $db = new \pangolin\Database($dbconfig["development"]);
 $db->connect();
+
+foreach ($installedapps as $app)
+{
+	require_once("apps/".$app."/__init.php");
+}
+
+require("routes.php");
 
 $router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
 

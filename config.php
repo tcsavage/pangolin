@@ -15,4 +15,7 @@ $installedapps = array(
 	"admin"
 );
 
-$warninglevel = 3;
+$siteDomain = "localhost";
+
+// Warning level 0-3. 0 for silence. 3 for everything including debug messages.
+$warninglevel = 2;

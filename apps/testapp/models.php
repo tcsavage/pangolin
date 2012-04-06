@@ -5,7 +5,7 @@ class Person extends \pangolin\Model
 	public $name;
 	public $age;
 	public $email;
-	public $tidbits;
+	//public $tidbits;
 	
 	public function __construct()
 	{
