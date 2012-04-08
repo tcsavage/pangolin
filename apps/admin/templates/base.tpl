@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
 	<meta charset="utf-8">
-	<title>Project Admin Panel</title>
+	<title>{block name=title}Dashboard{/block} - {$pangolin.projectname} Admin Panel</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
@@ -42,14 +42,36 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </a>
-		  <a class="brand" href="#">Project Admin Panel</a>
+		  <a class="brand" href="{$root}">{$pangolin.projectname} Admin Panel</a>
 		  <div class="nav-collapse">
 			<ul class="nav">
 			  <li class="active"><a href="#">Admin Home</a></li>
+			  <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						Installed Apps
+						<b class="caret"></b>
+						</a>
+					<ul class="dropdown-menu">
+						{foreach $apps as $app}
+						<li><a href="{$root}/{$app->namespace}">{$app->name}</a></li>
+						{/foreach}
+					</ul>
+				</li>
 			  <li><a href="#help">Help</a></li>
 			  <li><a href="#help">Provide Feedback</a></li>
 			</ul>
-			<p class="navbar-text pull-right">Logged in as <a href="#">username</a> | <a href="#">logout</a></p>
+			<ul class="nav pull-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						username
+						<b class="caret"></b>
+						</a>
+					<ul class="dropdown-menu">
+						<li><a href="{$root}/logout">Change Password</a></li>
+						<li><a href="{$root}/logout">Logout</a></li>
+					</ul>
+				</li>
+			</ul>
 		  </div><!--/.nav-collapse -->
 		</div>
 	  </div>
@@ -73,25 +95,17 @@
 		  <div class="well sidebar-nav">
 			<ul class="nav nav-list">
 				{foreach $apps as $app}
-				<li class="nav-header">{$app->appName}</li>
+				<li class="nav-header">{$app->name}</li>
+				<li><a href="/admin/{$app->namespace|lower}">{$app->name} Dashboard</a></li> <!-- Add class active at some point -->
 				{foreach $app->models as $model}
-				<li><a href="#">Manage {$model.class|pluralize|capitalize}</a></li>
+				<li><a href="/admin/{$app->namespace|lower}/{$model.class|lower}">Manage {$model.class|pluralize|capitalize}</a></li>
 				{/foreach}
 				{/foreach}
-			  <li class="nav-header">Blog</li>
-			  <li class="active"><a href="#">Dashboard</a></li>
-			  <li><a href="#">Manage Posts</a></li>
-			  <li><a href="#">Manage Comments</a></li>
-			  <li class="nav-header">Gallery</li>
-			  <li><a href="#">Manage Images</a></li>
-			  <li><a href="#">Manage Collections</a></li>
-			  <li class="nav-header">Admin</li>
-			  <li><a href="#">Manage Users</a></li>
-			  <li><a href="#">Manage Site Config</a></li>
 			</ul>
 		  </div><!--/.well -->
 		</div><!--/span-->
 		<div class="span9">
+			{block name=body}
 		  <div class="hero-unit">
 			<h1>Greetings, human!</h1>
 			<p>This is Pangolin's administration area. Here you can perform operations on your models and configure applications.</p>
@@ -131,6 +145,7 @@
 			  <p><a class="btn" href="#">View details &raquo;</a></p>
 			</div><!--/span-->
 		  </div><!--/row-->
+		  {/block}
 		</div><!--/span-->
 	  </div><!--/row-->
 
@@ -146,18 +161,7 @@
 	<!-- Le javascript
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/static/bootstrap/js/jquery.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-transition.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-alert.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-modal.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-dropdown.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-scrollspy.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-tab.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-tooltip.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-popover.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-button.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-collapse.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-carousel.js"></script>
-	<script src="/static/bootstrap/js/bootstrap-typeahead.js"></script>
+	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.js"></script>
   </body>
 </html>

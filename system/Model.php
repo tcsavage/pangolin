@@ -68,6 +68,17 @@ abstract class Model
 		return null;
 	}
 
+	public function getColumns()
+	{
+		return array_keys($this->properties);
+	}
+
+	public static function getColumnsS()
+	{
+		$dummy = new self;
+		return array_keys($dummy->properties);
+	}
+
 	public static function name()
 	{
 		return get_called_class();
@@ -76,8 +87,7 @@ abstract class Model
 	private static function tableName()
 	{
 		$classname = get_called_class();
-		$nsarray = explode("\\", $classname);
-		$tablename = end($nsarray);
+		$tablename = str_replace("\\", "_", $classname);
 		return strtolower($tablename);
 	}
 

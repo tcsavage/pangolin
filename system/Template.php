@@ -15,6 +15,17 @@ class Template
 		self::$smarty->addTemplateDir(array(ROOT . "/templates/"));
 
 		self::$smarty->registerPlugin("modifier","pluralize", "smarty_modifier_pluralize");
+
+		// Pangolin variables.
+		global $projectname;
+		$pangolinVars = array(
+			"url" => $_SERVER['REQUEST_URI'],
+			"projectname" => $projectname
+		);
+
+		$this->assign("pangolin", $pangolinVars);
+
+		//self::$smarty->debugging = TRUE;
 	}
 
 	public function assign($key, $var)

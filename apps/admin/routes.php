@@ -3,7 +3,8 @@
 function routes()
 {
 	return array(
-		"users" => "index",
+		"{app}/{model}" => "viewModel",
+		"{app}" => "viewApp",
 		"" => "index"
 	);
 }
