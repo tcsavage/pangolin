@@ -22,6 +22,22 @@ class NumericalField extends Field
 		}
 	}
 
+	public function renderInput($attributes = null)
+	{
+		$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
+		if ($attributes)
+		{
+			$attrstrings = array();
+			foreach ($attributes as $key => $value)
+			{
+				$attrstrings[] = "$key=\"$value\"";
+			}
+			$out .= implode(" ", $attrstrings);
+		}
+		$out .= '/>';
+		return $out;
+	}
+
 	public function SQLType()
 	{
 		return "INT";

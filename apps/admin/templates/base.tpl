@@ -52,8 +52,8 @@
 						<b class="caret"></b>
 						</a>
 					<ul class="dropdown-menu">
-						{foreach $apps as $app}
-						<li><a href="{$root}/{$app->namespace}">{$app->name}</a></li>
+						{foreach $apps as $a}
+						<li><a href="{$root}/{$a->namespace}">{$a->name}</a></li>
 						{/foreach}
 					</ul>
 				</li>
@@ -94,11 +94,11 @@
 		<div class="span3">
 		  <div class="well sidebar-nav">
 			<ul class="nav nav-list">
-				{foreach $apps as $app}
-				<li class="nav-header">{$app->name}</li>
-				<li><a href="/admin/{$app->namespace|lower}">{$app->name} Dashboard</a></li> <!-- Add class active at some point -->
-				{foreach $app->models as $model}
-				<li><a href="/admin/{$app->namespace|lower}/{$model.class|lower}">Manage {$model.class|pluralize|capitalize}</a></li>
+				{foreach $apps as $a}
+				<li class="nav-header">{$a->name}</li>
+				<li><a href="/admin/{$a->namespace|lower}">{$a->name} Dashboard</a></li> <!-- Add class active at some point -->
+				{foreach $a->models as $m}
+				<li><a href="/admin/{$a->namespace|lower}/{$m.class|lower}">Manage {$m.class|pluralize|capitalize}</a></li>
 				{/foreach}
 				{/foreach}
 			</ul>
@@ -153,7 +153,7 @@
 
 	  <footer>
 		<p>Pangolin Framework. Copyright &copy; Tom Savage 2012</p>
-		<p>Admin area template courtesy of <a href="http://twitter.github.com/bootstrap/index.html">Twitter Bootcamp</a>.
+		<p>Admin area template courtesy of <a href="http://twitter.github.com/bootstrap/index.html">Twitter Bootstrap</a>.
 	  </footer>
 
 	</div><!--/.fluid-container-->

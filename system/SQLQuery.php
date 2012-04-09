@@ -104,6 +104,8 @@ class SQLQuery
 				break;
 		}
 
+		Debug::logQuery($query);
+
 		return $query;
 	}
 

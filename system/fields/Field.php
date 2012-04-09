@@ -9,6 +9,7 @@ abstract class Field
 	
 	public $name = null;
 	public $prettyname = null;
+	public $helptext = null;
 	private $value = null;
 	
 	public function __construct($options, $value)
@@ -18,6 +19,7 @@ abstract class Field
 		if (isset($options["nullable"])) $this->nullable = $options["nullable"];
 		if (isset($options["autoincrement"])) $this->autoincrement = $options["autoincrement"];
 		if (isset($options["prettyname"])) $this->prettyname = $options["prettyname"];
+		if (isset($options["helptext"])) $this->helptext = $options["helptext"];
 		
 		$this->value = $value;
 	}
@@ -32,7 +34,7 @@ abstract class Field
 		$this->value = $value;
 	}
 
-	public function renderInput()
+	public function renderInput($attributes = null)
 	{
 		return "";
 	}

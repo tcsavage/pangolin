@@ -12,8 +12,10 @@
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
-			{foreach $columns as $column}
+			{foreach $hrcolumns as $column}
+			{if $column != "id"}
 			<th>{$column}</th>
+			{/if}
 			{/foreach}
 		</tr>
 	</thead>
@@ -21,10 +23,13 @@
 		{foreach $data as $record}
 		<tr>
 			{foreach $columns as $column}
+			{if $column != "id"}
 			<td>{$record->$column}</td>
+			{/if}
 			{/foreach}
 		</tr>
 		{/foreach}
 	</tbody>
 </table>
+<p><a href="{$root}/{$app->namespace|lower}/{$model|lower}/insert">Insert Record</a></p>
 {/block}

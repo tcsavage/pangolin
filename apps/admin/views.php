@@ -2,9 +2,7 @@
 
 function templateSetup($template)
 {
-	$users = User::getAll();
 	$apps = getInstalledApps();
-	$template->assign("users", $users);
 	$template->assign("apps", $apps);
 	$template->assign("root", "/admin");
 }
@@ -39,7 +37,24 @@ function viewModel($vars)
 	$template->assign("appname", $appManifest->name);
 	$template->assign("data", $data);
 	$template->assign("columns", $data[0]->getColumns());
+	$template->assign("hrcolumns", $data[0]->getPrettyColumnNames());
 	$template->assign("model", $vars['model']);
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
 	$template->render("viewModel");
+
+	print_r(\pangolin\Debug::getQueries());
+}
+
+function modelInsert($vars)
+{
+	$template = new \pangolin\Template;
+	templateSetup($template);
+	$fullmodelname = "\\$vars[app]\\$vars[model]";
+	$template->assign("columns", $fullmodelname::getColumnMetadata());
+	$appManifest = getAppManifest($vars['app']);
+	$template->assign("app", $appManifest);
+	$t = $fullmodelname::getColumnMetadata();
+	$template->assign("model", $vars['model']);
+	$template->assign("modelname", $vars['model']); // Needed for weird bug.
+	$template->render("modelInsert");
 }
