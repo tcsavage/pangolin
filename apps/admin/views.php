@@ -42,7 +42,9 @@ function viewModel($vars)
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
 	$template->render("viewModel");
 
+	echo("<h3>SQL queries run on this page:</h3><pre>");
 	print_r(\pangolin\Debug::getQueries());
+	echo("</pre>");
 }
 
 function modelInsert($vars)
