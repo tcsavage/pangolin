@@ -152,8 +152,7 @@
 	  <hr>
 
 	  <footer>
-		<p>Pangolin Framework. Copyright &copy; Tom Savage 2012</p>
-		<p>Admin area template courtesy of <a href="http://twitter.github.com/bootstrap/index.html">Twitter Bootstrap</a>.
+		<p><a href="https://github.com/tcsavage/pangolin">Pangolin Framework</a>. Copyright &copy; <a href="http://tcsavage.org">Tom Savage</a> 2012. Made with <a href="http://getbootstrap.com">Bootstrap</a>.
 	  </footer>
 
 	</div><!--/.fluid-container-->
