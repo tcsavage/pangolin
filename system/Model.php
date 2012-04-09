@@ -19,7 +19,7 @@ abstract class Model
 		foreach ($properties as $name => $value)
 		{
 			// We are only interested in the properties of child classes.
-			if ($name != "properties")
+			if ($name != "properties" && $name != "id")
 			{
 				// Add the property to the array.
 				$this->properties[$name] = $value;
@@ -29,6 +29,11 @@ abstract class Model
 				unset($this->$name);
 			}
 		}
+
+		// Add id to the beginning.
+		array_unshift($this->properties, $this->id);
+		$this->properties[0]->name = 'id';
+		unset($this->id);
 	}
 	
 	// Grabs properties.
