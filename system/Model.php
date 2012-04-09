@@ -1,5 +1,15 @@
 <?php namespace pangolin;
 
+function property_comparison_function($a, $b)
+{
+	if ($b->order == -1) { return -1; }
+	if ($a->order == $b->order)
+	{
+		return 0;
+	}
+	return ($a->order < $b->order) ? -1 : 1;
+}
+
 // Base class formodels.
 abstract class Model
 {
@@ -12,14 +22,16 @@ abstract class Model
 	// Constructor. Has magic properties.
 	public function __construct()
 	{
-		$this->id = new \pangolin\NumericalField(array("autoincrement" => True, "primarykey" => True), null);
+		$this->id = new \pangolin\NumericalField(array("autoincrement" => True, "primarykey" => True, "order" => 0), null);
 
 		// Grab all the variables defined in the class and loop over them.
 		$properties = get_object_vars($this);
+		unset($properties['properties']);
+		uasort($properties, '\pangolin\property_comparison_function');
 		foreach ($properties as $name => $value)
 		{
 			// We are only interested in the properties of child classes.
-			if ($name != "properties" && $name != "id")
+			if ($name != "properties")
 			{
 				// Add the property to the array.
 				$this->properties[$name] = $value;
@@ -29,11 +41,6 @@ abstract class Model
 				unset($this->$name);
 			}
 		}
-
-		// Add id to the beginning.
-		array_unshift($this->properties, $this->id);
-		$this->properties[0]->name = 'id';
-		unset($this->id);
 	}
 	
 	// Grabs properties.

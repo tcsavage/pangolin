@@ -2,6 +2,7 @@
 
 abstract class Field
 {
+	public $order = -1;
 	public $primarykey = False;
 	public $foreignkey = null;
 	public $nullable = True;
@@ -14,6 +15,7 @@ abstract class Field
 	
 	public function __construct($options, $value)
 	{
+		if (isset($options["order"])) $this->order = $options["order"];
 		if (isset($options["primarykey"])) $this->primarykey = $options["primarykey"];
 		if (isset($options["foreignkey"])) $this->foreign = $options["foreignkey"];
 		if (isset($options["nullable"])) $this->nullable = $options["nullable"];

@@ -9,11 +9,17 @@ class User extends \pangolin\Model
 	public function __construct()
 	{
 		$this->username = new \pangolin\TextField(array(
+			"order" => 1,
 			"maxlength" => 150,
 			"prettyname" => "Username",
 			"helptext" => "The username used to log onto the site."
 		), null);
-		$this->email = new \pangolin\TextField(array("maxlength" => 200, "prettyname" => "Email Address"), null);
+
+		$this->email = new \pangolin\TextField(array(
+			"order" => 2,
+			"maxlength" => 200,
+			"prettyname" => "Email Address"
+		), null);
 		$this->password = new \pangolin\MD5Field();
 		
 		parent::__construct();
