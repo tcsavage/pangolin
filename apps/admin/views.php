@@ -36,6 +36,7 @@ function viewModel($vars)
 	$template->assign("app", $appManifest);
 	$template->assign("appname", $appManifest->name);
 	$template->assign("data", $data);
+	$template->assign("count", $model::countAll());
 	$template->assign("columns", $data[0]->getColumns());
 	$template->assign("hrcolumns", $data[0]->getPrettyColumnNames());
 	$template->assign("model", $vars['model']);

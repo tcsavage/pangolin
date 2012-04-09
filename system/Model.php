@@ -168,6 +168,11 @@ abstract class Model
 		
 		return $list;
 	}
+
+	public static function countAll()
+	{
+		return count(self::getAll());
+	}
 	
 	public static function getWhere($where)
 	{

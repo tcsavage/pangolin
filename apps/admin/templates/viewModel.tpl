@@ -1,7 +1,7 @@
 {extends file="base.tpl"}
 {block name=title}{$model|pluralize|capitalize} - {$app->name}{/block}
 {block name=body}
-<h1>{$modelname|pluralize|capitalize}</h1>
+<h1>{$modelname|pluralize|capitalize} <small>{$count} Records</small></h1>
 <hr/>
 <div class="alert alert-block alert-info fade in">
 	<a class="close" data-dismiss="alert">&times;</a>
