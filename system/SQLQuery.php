@@ -103,13 +103,13 @@ class SQLQuery
 				throw new \Exception("Invalid query type ($this->type).");
 				break;
 		}
-
+		
 		Debug::logQuery($query);
 
 		return $query;
 	}
 
-	public function fetchAll()
+	public function run()
 	{
 		try
 		{
@@ -121,23 +121,17 @@ class SQLQuery
 		{
 			die("Database query failed: " . $e->getMessage());
 		}
-		
-		return $statement->fetchAll();
+
+		return $statement;
+	}
+
+	public function fetchAll()
+	{
+		return $this->run()->fetchAll();
 	}
 
 	public function fetch()
 	{
-		try
-		{
-			$statement = $this->database->link->prepare($this->build());
-			$statement->execute();
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		}
-		catch(\PDOException $e)
-		{
-			die("Database query failed: " . $e->getMessage());
-		}
-		
-		return $statement->fetch();
+		return $this->run()->fetch();
 	}
 }

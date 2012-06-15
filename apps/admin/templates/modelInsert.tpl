@@ -15,7 +15,7 @@
 				<legend>New {$modelname}</legend>
 				{foreach $columns as $column => $md}
 				<div class="control-group">
-					<label class="control-label" for="{$md->name}">{$md->name}</label>
+					<label class="control-label" for="{$md->name}">{$md->prettyname}</label>
 					<div class="controls">
 						{$md->renderInput()}
 						{if $md->helptext}<p class="help-block">{$md->helptext}</p>{/if}

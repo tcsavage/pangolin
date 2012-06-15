@@ -37,8 +37,8 @@ function viewModel($vars)
 	$template->assign("appname", $appManifest->name);
 	$template->assign("data", $data);
 	$template->assign("count", $model::countAll());
-	$template->assign("columns", $data[0]->getColumns());
-	$template->assign("hrcolumns", $data[0]->getPrettyColumnNames());
+	$template->assign("columns", $model::getColumnsS());
+	$template->assign("hrcolumns", $model::getPrettyColumnNamesS());
 	$template->assign("model", $vars['model']);
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
 	$template->render("viewModel");

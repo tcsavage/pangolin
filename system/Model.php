@@ -10,7 +10,9 @@ function property_comparison_function($a, $b)
 	return ($a->order < $b->order) ? -1 : 1;
 }
 
-// Base class formodels.
+/*
+Base class for models.
+*/
 abstract class Model
 {
 	// Stores all the model properties. Facilitates magic.
@@ -35,7 +37,9 @@ abstract class Model
 			{
 				// Add the property to the array.
 				$this->properties[$name] = $value;
-				$this->properties[$name]->name = ($this->properties[$name]->prettyname) ? $this->properties[$name]->prettyname : $name;
+				$this->properties[$name]->name = $name;
+				if (!$this->properties[$name]->prettyname) $this->properties[$name]->prettyname = $name;
+				//$this->properties[$name]->name = ($this->properties[$name]->prettyname) ? $this->properties[$name]->prettyname : $name;
 				
 				// Unset it so we can use __get and __set.
 				unset($this->$name);
@@ -80,6 +84,7 @@ abstract class Model
 		return null;
 	}
 
+	//
 	public static function getColumnMetadata()
 	{
 		$classname = self::name();
@@ -152,6 +157,7 @@ abstract class Model
 		$classname = get_called_class();
 		$query = new SQLQuery($db);
 		$query = $query->selectAll()->from($tablename);
+		$query->run();
 		$results = $query->fetchAll();
 		
 		$list = new ObjectList();
