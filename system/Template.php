@@ -25,7 +25,7 @@ class Template
 
 		$this->assign("pangolin", $pangolinVars);
 
-		//self::$smarty->debugging = TRUE;
+		self::$smarty->debugging = TRUE;
 	}
 
 	public function assign($key, $var)
