@@ -28,13 +28,13 @@ class User extends \pangolin\Model
 
 class Config extends \pangolin\Model
 {
-	public $key;
-	public $value;
+	public $k;
+	public $v;
 	
 	public function __construct()
 	{
-		$this->key = new \pangolin\TextField(array("maxlength" => 150), null);
-		$this->value = new \pangolin\TextField(array("maxlength" => 200), null);
+		$this->k = new \pangolin\TextField(array("maxlength" => 150), null);
+		$this->v = new \pangolin\TextField(array("maxlength" => 200), null);
 		
 		parent::__construct();
 	}
