@@ -6,7 +6,9 @@ class Debug
 
 	public static function logQuery($query)
 	{
-		self::$queries[] = $query;
+		$backtrace = debug_backtrace();
+		array_shift($backtrace);
+		self::$queries[] = array("query" => $query, "backtrace" => $backtrace);
 	}
 
 	public static function getQueries()
