@@ -38,6 +38,14 @@ class SQLQuery
 		return $this;
 	}
 
+	public function countAll()
+	{
+		$this->type = "SELECT";
+		$this->columns[] = "COUNT(*)";
+
+		return $this;
+	}
+
 	public function selectAll()
 	{
 		$this->type = "SELECT";
