@@ -47,6 +47,13 @@ foreach ($installedapps as $app)
 
 require("routes.php");
 
-$router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
+try
+{
+	$router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
+}
+catch (Exception $e)
+{
+	\pangolin\render_error_page($e);
+}
 
 \pangolin\Database::disconnectAll();
