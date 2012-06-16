@@ -8,7 +8,7 @@ foreach ($installedapps as $app)
 }
 
 $routes = array();
-$routes["testapp"] = "\\testapp\\action2";
+$routes["testapp/errorout"] = "\\testapp\\errorout";
 $routes["testapp/{id}"] = "\\testapp\\action1";
 $routes["users"] = "\\admin\\index";
 $routes["admin"] = \admin\routes();
