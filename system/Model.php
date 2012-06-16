@@ -84,7 +84,7 @@ abstract class Model
 		return null;
 	}
 
-	//
+	// Get field properties.
 	public static function getColumnMetadata()
 	{
 		$classname = self::name();
@@ -92,11 +92,13 @@ abstract class Model
 		return $dummy->properties;
 	}
 
+	// Get column names.
 	public function getColumns()
 	{
 		return array_keys($this->properties);
 	}
 
+	// Static get columns.
 	public static function getColumnsS()
 	{
 		$classname = self::name();
@@ -104,6 +106,7 @@ abstract class Model
 		return $dummy->getColumns();
 	}
 
+	// Get pretty column names.
 	public function getPrettyColumnNames()
 	{
 		$out = array();
@@ -114,6 +117,7 @@ abstract class Model
 		return $out;
 	}
 
+	// Static get pretty column names.
 	public static function getPrettyColumnNamesS()
 	{
 		$classname = self::name();
@@ -121,11 +125,13 @@ abstract class Model
 		return $dummy->getPrettyColumnNames();
 	}
 
+	// Get name of the model.
 	public static function name()
 	{
 		return get_called_class();
 	}
 	
+	// Get the model's table name.
 	private static function tableName()
 	{
 		$classname = get_called_class();
@@ -133,6 +139,7 @@ abstract class Model
 		return strtolower($tablename);
 	}
 
+	// Build a SQL statement for creating the model's table.
 	public static function buildSQLCreate()
 	{
 		global $db;
@@ -150,6 +157,7 @@ abstract class Model
 		return $query;
 	}
 	
+	// Get all fields from the database.
 	public static function getAll()
 	{
 		global $db;
@@ -175,11 +183,20 @@ abstract class Model
 		return $list;
 	}
 
+	// Count all fields in the database.
 	public static function countAll()
 	{
-		return count(self::getAll());
+		global $db;
+		$tablename = self::tableName();
+		$classname = get_called_class();
+		$query = new SQLQuery($db);
+		$query = $query->countAll()->from($tablename);
+		$query->run();
+		$results = $query->fetchAll();
+		return intval($results[0]['COUNT(*)']);
 	}
 	
+	// Get all fields conditionally.
 	public static function getWhere($where)
 	{
 		$tablename = self::tableName();
@@ -203,6 +220,7 @@ abstract class Model
 		return $list;
 	}
 	
+	// Get field with specified id.
 	public static function getId($id)
 	{
 		global $db;
