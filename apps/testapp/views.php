@@ -28,7 +28,7 @@ function action1($vars)
 	}
 }
 
-function action2()
+function errorout()
 {
-	echo("Test");
+	throw new \Exception("Test Exception");
 }
