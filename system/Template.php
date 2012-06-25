@@ -40,7 +40,8 @@ class Template
 			self::$smarty->assign($key, $value);
 		}
 
-		self::$smarty->display($name.".tpl");
+		$html = self::$smarty->fetch($name.".tpl");
+		echo($html);
 	}
 
 	public static function addTemplateDir($string)

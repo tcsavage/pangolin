@@ -63,3 +63,9 @@ function modelInsert($vars)
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
 	$template->render("modelInsert");
 }
+
+function ajaxInsert($vars, $post)
+{
+	//header("HTTP/1.0 404 Not Found");
+	echo($_POST['record']);
+}

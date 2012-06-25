@@ -30,6 +30,8 @@
 	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+
+	{block name=addheader}{/block}
   </head>
 
   <body>
@@ -162,5 +164,8 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
 	<script src="/static/bootstrap/js/bootstrap.js"></script>
+	<script src="/static/json/json2.js"></script>
+
+	{block name=final}{/block}
   </body>
 </html>

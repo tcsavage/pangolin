@@ -25,8 +25,8 @@ class Post extends \pangolin\Model
 	
 	public function __construct()
 	{
-		$this->content = new \pangolin\TextField(array("maxlength" => 150), null);
-		$this->user = new \pangolin\ForeignField(array("model" => get_class(new Person())), null);
+		$this->content = new \pangolin\TextField(array("prettyname" => "Content", "maxlength" => 150), null);
+		$this->user = new \pangolin\ForeignField(array("prettyname" => "User", "helptext" => "Foreign key of posting user.", "model" => get_class(new Person())), null);
 		
 		parent::__construct();
 	}
