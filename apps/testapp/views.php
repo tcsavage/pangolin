@@ -2,9 +2,9 @@
 
 function index()
 {
-	$people = Person::getAll();
+	$posts = Post::getAll();
 	$template = new \pangolin\Template;
-	$template->assign("people", $people);
+	$template->assign("posts", $posts);
 	$template->render("test");
 }
 

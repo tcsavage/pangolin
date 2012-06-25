@@ -46,6 +46,11 @@ abstract class Model
 			}
 		}
 	}
+
+	public function __toString()
+	{
+		return "Model : ".self::name()." : ".$this->id;
+	}
 	
 	// Grabs properties.
 	public function __set($name, $value)
@@ -176,6 +181,12 @@ abstract class Model
 			foreach ($row as $field => $value)
 			{
 				$model->$field = $value;
+				// If the field is a foreign key, replace the value with the object it points to.
+				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
+				{
+					$foreignModel = $model->properties[$field]->getModel();
+					$model->$field = $foreignModel::getId($model->$field);
+				}
 			}
 			$list[] = $model;
 		}
@@ -239,6 +250,12 @@ abstract class Model
 			foreach ($result as $field => $value)
 			{
 				$model->$field = $value;
+				// If the field is a foreign key, replace the value with the object it points to.
+				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
+				{
+					$foreignModel = $model->properties[$field]->getModel();
+					$model->$field = $foreignModel::getId($model->$field);
+				}
 			}
 			return $model;
 		}

@@ -3,8 +3,8 @@
 <body>
 <h1>Test Page</h1>
 <ul>
-{foreach $people as $p}
-<li>{$p->name}</li>
+{foreach $posts as $p}
+<li>{$p->user->name}: {$p->content}</li>
 {/foreach}
 </ul>
 </body>

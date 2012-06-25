@@ -17,3 +17,17 @@ class Person extends \pangolin\Model
 		parent::__construct();
 	}
 }
+
+class Post extends \pangolin\Model
+{
+	public $content;
+	public $user;
+	
+	public function __construct()
+	{
+		$this->content = new \pangolin\TextField(array("maxlength" => 150), null);
+		$this->user = new \pangolin\ForeignField(array("model" => get_class(new Person())), null);
+		
+		parent::__construct();
+	}
+}
