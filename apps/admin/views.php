@@ -17,6 +17,8 @@ function index()
 function viewApp($vars)
 {
 	$models = Site::getAppModels($vars['app']);
+	$addCount = function($elem) { $elem['count'] = $elem['fullpath']::countAll(); return $elem; };
+	$models =  \pangolin\map($models, $addCount);
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$appManifest = getAppManifest($vars['app']);

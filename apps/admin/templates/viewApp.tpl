@@ -21,8 +21,8 @@
 		{foreach $models as $model}
 		<tr>
 			<td>{$model.class}</td>
-			<td>0</td>
-			<td>Manage</td>
+			<td>{$model.count}</td>
+			<td><a href="{$root}/{$model.path|lower}/{$model.class|lower}">Manage</a></td>
 		</tr>
 		{/foreach}
 	</tbody>

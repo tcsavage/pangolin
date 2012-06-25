@@ -96,9 +96,9 @@
 			<ul class="nav nav-list">
 				{foreach $apps as $a}
 				<li class="nav-header">{$a->name}</li>
-				<li><a href="/admin/{$a->namespace|lower}">{$a->name} Dashboard</a></li> <!-- Add class active at some point -->
+				<li><a href="{$root}/{$a->namespace|lower}">{$a->name} Dashboard</a></li> <!-- Add class active at some point -->
 				{foreach $a->models as $m}
-				<li><a href="/admin/{$a->namespace|lower}/{$m.class|lower}">Manage {$m.class|pluralize|capitalize}</a></li>
+				<li><a href="{$root}/{$a->namespace|lower}/{$m.class|lower}">Manage {$m.class|pluralize|capitalize}</a></li>
 				{/foreach}
 				{/foreach}
 			</ul>
