@@ -3,8 +3,8 @@
 $dbconfig = array(
 	"development" => array(
 		"user" => "root",
-		"pass" => "",
-		"name" => "pangolin_test",
+		"pass" => "rootpw",
+		"name" => "uopcomputing",
 		"engine" => "mysql",
 		"host" => "localhost",
 	),
@@ -12,10 +12,11 @@ $dbconfig = array(
 
 $installedapps = array(
 	"testapp",
-	"admin"
+	"admin",
+	"uopcomputing"
 );
 
-$projectname = "Testing";
+$projectname = "UoP Computing";
 
 $siteDomain = "localhost";
 
