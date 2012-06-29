@@ -2,7 +2,7 @@
 
 function index()
 {
+	echo "string";
 	$template = new \pangolin\Template;
-	templateSetup($template);
 	$template->render("base");
 }
