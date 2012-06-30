@@ -55,7 +55,7 @@ function modelInsert($vars)
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
-	$template->assign("columns", $fullmodelname::getColumnMetadata());
+	$template->assign("columns", $fullmodelname::getColumnMetadata(true));
 	$appManifest = getAppManifest($vars['app']);
 	$template->assign("app", $appManifest);
 	$t = $fullmodelname::getColumnMetadata();
