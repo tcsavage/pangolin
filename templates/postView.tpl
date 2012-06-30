@@ -12,29 +12,23 @@
 									<span class="label">Year 1 Computing</span>
 								</div>
 							</div>
-						</div>
+						</div>`
 						<div>
 							<p>{$post->body}</p>
 							<small>Posted {$post->date}. {$commentCount} comments <a href="/post/{$post->id}">Permalink</a></small>
 						</div>
 						<hr>
-						<div class="comments">
+						<div class="comments"><a name="comments"></a>
+							{foreach $post->comments as $comment}
 							<div class="comment">
-								<div class="number">1</div>
+								<div class="number">{$comment->id}</div>
 								<img src="tempimg/x.jpg" class="profilepic">
-								<h3>Artur Salagean</h3>
+								<h3>{$comment->user->name}</h3>
 								<div class="content">
-									<p>I NEED THE MARKS NOW !!!!!!!!!</p>
+									<p>{$comment->body}</p>
 								</div>
 							</div>
-							<div class="comment">
-								<div class="number">2</div>
-								<img src="tempimg/y.jpg" class="profilepic">
-								<h3>Harry Cardew</h3>
-								<div class="content">
-									<p>i hope this a good thing and not bad</p>
-								</div>
-							</div>
+							{/foreach}
 						</div>
 						<hr>
 						<form>
