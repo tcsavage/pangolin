@@ -24,7 +24,7 @@ class TextField extends Field
 	// TODO: move validation out into seperate function.
 	public function setValue($value)
 	{
-		if (strlen($value) > $this->maxlength)
+		if ($this->maxlength && strlen($value) > $this->maxlength)
 		{
 			return;
 		}

@@ -21,10 +21,6 @@ class Database
 			self::$links[] = $this->link;
 			$this->link->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		}
-		catch(PDOException $e)
-		{
-			die("Connection to database failed: " . $e->getMessage());
-		}
 	}
 	
 	public function disconnect()
