@@ -1,0 +1,289 @@
+body
+{
+	font-family: 'Open Sans', sans-serif;
+	color: #333;
+	padding-top: 40px;
+}
+
+a, a:link, a:visited
+{
+	color: #555;
+}
+
+a:hover, a:active
+{
+	color: #197dbd;
+}
+
+.contain
+{
+	width: 900px;
+	margin: 0 auto;
+}
+
+header
+{
+	border-bottom: #999 solid 1px;
+	padding: 5px 0px;
+}
+
+header h1
+{
+	color: #333;
+	font-size: 40pt;
+	font-weight: normal;
+}
+
+header h2
+{
+	color: #333;
+	font-size: 14pt;
+	font-weight: normal;
+}
+
+header p
+{
+	margin: 5px 0;
+}
+
+.intro
+{
+	color: #fff;
+	background: #197dbd;
+	background-image: url('/static/uop/img/introbg.png');
+	-webkit-box-shadow: inset 0px 5px 15px 0px rgba(0, 0, 0, 0.40);
+	box-shadow: inset 0px 5px 15px 0px rgba(0, 0, 0, 0.40);
+}
+
+.intro a, .intro a:link, .intro a:visited, .intro a:hover, .intro a:active { color: #fff; }
+
+.intro h3
+{
+	color: #fff;
+	font-size: 24pt;
+}
+
+.intro h3 small
+{
+	font-size: 70%;
+	color: #fff;
+}
+
+.intro ul.textblock
+{
+	display: block;
+	padding: 10px;
+	text-align: right;
+	list-style-type: none;
+}
+
+.intro ul.textblock li
+{
+	margin: 25px 0;
+}
+
+.intro ul.textblock h3
+{
+	color: #fff;
+	font-size: 18pt;
+	background: rgba(50,50,50,0.6);
+	padding: 5px;
+	display: inline;
+	width: auto;
+}
+
+article, aside
+{
+	padding: 10px 0px;
+}
+
+article h1, aside h1
+{
+	font-size: 20pt;
+	margin: 10px 0px;
+}
+
+article h1 span, aside h1 span
+{
+	color: #999;
+	font-size: 70%;
+}
+
+footer
+{
+	font-size: 10pt;
+	color: #999;
+	border-top: #ccc solid 1px;
+	margin-top: 10px;
+	padding: 10px 0px;
+}
+
+footer p
+{
+	margin: 5px 0;
+	padding: 0;
+}
+
+.xteam-small
+{
+	padding-left: 35px;
+	background: url('/static/uop/img/teamlogo.png') no-repeat left center;
+	height: 32px;
+}
+
+.xteam-tiny
+{
+	padding: 2px 0px;
+	padding-left: 22px;
+	background: url('/static/uop/img/teamlogo-tiny.png') no-repeat left center;
+	min-height: 20px !important;
+}
+
+.navbar a.brand
+{
+	font-weight: normal;
+}
+
+.comments img.profilepic, .post img.profilepic
+{
+	float: left;
+}
+
+.post img.profilepic
+{
+	width: 25px;
+	height: 25px;
+}
+
+.comments .comment, .posts .post
+{
+	margin-bottom: 20px;
+}
+
+.comments .comment h3, .comments .comment .content
+{
+	padding-left: 105px;
+}
+
+.posts .post .username>h3
+{
+	padding-left: 5px;
+	display: inline;
+}
+
+article small
+{
+	font-size: 10pt;
+	color: #999;
+	display: block;
+}
+
+.username
+{
+	position: relative;
+}
+
+.username h3:hover+div.userbox
+{
+	opacity: 1;
+	visibility: visible;
+	transition-delay: 0s;
+	-webkit-transition-delay: 0s;
+}
+
+.userbox
+{
+	/*transition-property: opacity;
+	transition-duration: 1s;
+	transition-delay: 0.2s;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 1s;
+	-webkit-transition-delay: 0.2s;*/
+	transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+	-webkit-transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+	-moz-transition: visibility 0s linear 0.5s,opacity 0.5s linear;
+	visibility: hidden;
+	box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.40);
+	-moz-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.40);
+	-webkit-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.40);
+	opacity: 0;
+	position: absolute;
+	background: #fff;
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+
+img.profilepic-large
+{
+	width: 75px;
+	height: 75px;
+	float: left;
+}
+
+.userbox .userbox-detail
+{
+	padding-left: 80px;
+}
+
+.tags
+{
+	line-height: 20px;
+}
+
+a.label:hover, a.label:active, a.label:focus
+{
+	opacity: 0.8;
+}
+
+.number
+{
+	float: left;
+	position:relative;
+	width:50px;
+	height:50px;
+	text-align:center;
+	font-size:20pt;
+	line-height: 50px;
+	color:#fff;
+	background:#3498d8;
+}
+
+.number-bubble
+{
+	float: left;
+	/*position:relative;
+	width:50px;
+	height:50px;*/
+	/*margin:50px 0 50px;*/
+	/*text-align:center;
+	font-size:20pt;
+	line-height: 50px;
+	color:#fff;
+	background:#3498d8;*/
+/*	bottom: -50px;
+	left: -50px;*/
+}
+
+/* creates the larger triangle */
+.number-bubble:before
+{
+	content:"";
+	position:absolute;
+	bottom:-40px;
+	right:0;
+	border-width:0 0 40px 40px;
+	border-style:solid;
+	border-color:transparent #0165a5;
+}
+
+/* creates the larger triangle */
+.number-bubble:after
+{
+	content:"";
+	position:absolute;
+	bottom:-40px;
+	right:25px; 
+	border-width:0 0 40px 15px;
+	border-style:solid;
+	border-color:transparent #fff;
+}
