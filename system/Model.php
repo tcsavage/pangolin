@@ -153,6 +153,20 @@ abstract class Model
 		return strtolower($tablename);
 	}
 
+	// Save as new in database.
+	public function create()
+	{
+		global $db;
+		$tablename = self::tableName();
+		$query = new SQLQuery($db);
+		$query = $query->insert($tablename);
+		foreach ($this->properties as $key => $value)
+		{
+			if ($key != "id") $query->value($key, $value->getValue());
+		}
+		$query->run();
+	}
+
 	// Build a SQL statement for creating the model's table.
 	public static function buildSQLCreate()
 	{

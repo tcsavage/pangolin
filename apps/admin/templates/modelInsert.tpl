@@ -19,7 +19,7 @@ $("#insert").click(function(event) {
 		type: "POST",
 		data: "record="+(JSON.stringify(newRecord)),
 		success: function(data, status, jqxhr) {
-			$("#newrecordid").text("5");
+			$("#newrecordid").text(data);
 			$("#successalert").fadeIn();
 		},
 		error: function(jqxhr, status, error) {
@@ -56,6 +56,7 @@ $("#insert").click(function(event) {
 			<fieldset>
 				<legend>New {$modelname}</legend>
 				{foreach $columns as $column => $md}
+				{if $column != "id"}
 				<div class="control-group">
 					<label class="control-label" for="{$md->name}">{$md->prettyname}</label>
 					<div class="controls">
@@ -63,6 +64,7 @@ $("#insert").click(function(event) {
 						{if $md->helptext}<p class="help-block">{$md->helptext}</p>{/if}
 					</div>
 				</div>
+				{/if}
 				{/foreach}
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary" id="insert">Insert</button>

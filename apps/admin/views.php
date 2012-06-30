@@ -66,6 +66,14 @@ function modelInsert($vars)
 
 function ajaxInsert($vars, $post)
 {
+	$fullmodelname = "\\$vars[app]\\$vars[model]";
 	//header("HTTP/1.0 404 Not Found");
-	echo($_POST['record']);
+	$data = json_decode($_POST['record']);
+	$new = new $fullmodelname();
+	foreach ($data as $name => $value)
+	{
+		$new->$name = $value;
+	}
+	$new->create();
+	echo(var_dump($new));
 }

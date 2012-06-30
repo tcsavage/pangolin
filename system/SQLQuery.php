@@ -85,6 +85,26 @@ class SQLQuery
 
 		return $this;
 	}
+
+	public function insert($table)
+	{
+		$this->type = "INSERT INTO";
+		$this->table = $table;
+
+		return $this;
+	}
+
+	public function value($field, $value)
+	{
+		$this->columns[$field] = $value;
+		return $this;
+	}
+
+	public function values($values)
+	{
+		$this->columns = array_merge($this->columns, $values);
+		return $this;
+	}
 	
 	public function build()
 	{
@@ -107,13 +127,18 @@ class SQLQuery
 				$query .= implode(", ", $this->columns);
 				$query .= ")";
 				break;
+			case "INSERT INTO":
+				$fields = implode(", ", array_keys($this->columns));
+				$values = implode(", ", map(array_values($this->columns), $f = function($x) { return "'".$x."'"; }));
+				$query .= "INSERT INTO $this->table ($fields) VALUES ($values)";
+				break;
 			default:
 				throw new \Exception("Invalid query type ($this->type).");
 				break;
 		}
 		
 		Debug::logQuery($query);
-
+		
 		return $query;
 	}
 
