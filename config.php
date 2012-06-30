@@ -11,7 +11,6 @@ $dbconfig = array(
 );
 
 $installedapps = array(
-	"testapp",
 	"admin",
 	"uopcomputing"
 );
