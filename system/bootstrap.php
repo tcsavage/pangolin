@@ -19,3 +19,4 @@ require_once("fields/NumericalField.php");
 require_once("fields/ForeignField.php");
 require_once("fields/ForeignArray.php");
 require_once("fields/BoolField.php");
+require_once("fields/SlugField.php");
