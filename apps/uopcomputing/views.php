@@ -23,3 +23,11 @@ function postView($vars)
 	$template->assign("minipost", substr($data->body, 0, 15));
 	$template->render("postView");
 }
+
+function staticPage($vars)
+{
+	$template = new \pangolin\Template;
+	$data = Page::getWhere(array("slug" => "'".$vars['slug']."'"));
+	$template->assign("page", $data[0]);
+	$template->render("staticPage");
+}

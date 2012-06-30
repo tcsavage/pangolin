@@ -99,3 +99,26 @@ class Tag extends \pangolin\Model
 		parent::__construct();
 	}
 }
+
+class Page extends \pangolin\Model
+{
+	public $name;
+	public $content;
+	public $slug;
+
+	public function __construct()
+	{
+		$this->name = new \pangolin\TextField(array(
+			"maxlength" => 200, 
+			"order" => 1,
+			"prettyname" => "Page Title"), null);
+		$this->content = new \pangolin\TextField(array(
+			"prettyname" => "HTML Source Code", 
+			"order" => 2), null);
+		$this->slug = new \pangolin\SlugField(array(
+			"prettyname" => "URL slug",
+			"order" => 3), null);
+
+		parent::__construct();
+	}
+}
