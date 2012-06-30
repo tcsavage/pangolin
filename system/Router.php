@@ -98,7 +98,7 @@ class Router
 					else
 					{
 						$appAction = explode("\\", $action);
-						debugMsg("App action:");
+						debugMsg("Matched");
 						debugMsg("App action: " . print_r($appAction, True));
 						Template::addTemplateDir(ROOT . "/apps/$appAction[0]/templates");
 						$action($this->actionvars);
