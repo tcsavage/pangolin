@@ -287,6 +287,7 @@ abstract class Model
 	// Get field with specified id.
 	public static function getId($id)
 	{
-		self::getWhere(array("id" => $id));
+		$res = self::getWhere(array("id" => $id));
+		return $res[0];
 	}
 }
