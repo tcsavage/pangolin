@@ -3,5 +3,5 @@
 function index()
 {
 	$template = new \pangolin\Template;
-	$template->render("base");
+	$template->render("uopbase");
 }
