@@ -45,6 +45,7 @@ abstract class Model
 				unset($this->$name);
 			}
 		}
+		//echo(var_dump($this));
 	}
 
 	public function __toString()
@@ -90,11 +91,19 @@ abstract class Model
 	}
 
 	// Get field properties.
-	public static function getColumnMetadata()
+	public static function getColumnMetadata($onlyvisible = false)
 	{
 		$classname = self::name();
 		$dummy = new $classname;
-		return $dummy->properties;
+		return ($onlyvisible) ? filter($dummy->properties, $checkfun = function($col) { return is_subclass_of($col, "\\pangolin\\Field"); }) : $dummy->properties;
+	}
+
+	// Get invisible fields.
+	public static function getInvisibleColumns()
+	{
+		$classname = self::name();
+		$dummy = new $classname;
+		return (filter($dummy->properties, $f = function($col) { return get_class($col) == "pangolin\\ForeignArray"; }));
 	}
 
 	// Get column names.
@@ -154,7 +163,7 @@ abstract class Model
 		$columns = array();
 		foreach ($tempObj->properties as $property)
 		{
-			$columns[] = $property->renderSQLDef();
+			if (is_subclass_of($property, "\\pangolin\\Field")) $columns[] = $property->renderSQLDef();
 		}
 		$query = new SQLQuery($db);
 		$query = $query->createTable($tablename, $columns);
@@ -163,7 +172,7 @@ abstract class Model
 	}
 	
 	// Get all fields from the database.
-	public static function getAll()
+	public static function getAll($except = null)
 	{
 		global $db;
 		$tablename = self::tableName();
@@ -184,10 +193,28 @@ abstract class Model
 				// If the field is a foreign key, replace the value with the object it points to.
 				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
 				{
-					$foreignModel = $model->properties[$field]->getModel();
-					$model->$field = $foreignModel::getId($model->$field);
+					if (in_array($field, $except))
+					{
+						$model->$field = null;
+					}
+					else
+					{
+						$foreignModel = $model->properties[$field]->getModel();
+						$model->$field = $foreignModel::getId($model->$field);
+					}
 				}
 			}
+
+			// For foreign array fields.
+			$invisible = $model::getInvisibleColumns();
+			foreach ($invisible as $name => $column)
+			{
+				$m = $column->getModel();
+				$elems = $m::getWhere(array($column->getField() => $model->id));
+				$model->$name = $elems;
+			}
+
+			//die(print_r($model, true));
 			$list[] = $model;
 		}
 		
@@ -210,25 +237,37 @@ abstract class Model
 	// Get all fields conditionally.
 	public static function getWhere($where)
 	{
+		global $db;
 		$tablename = self::tableName();
 		$classname = get_called_class();
-		$query = new SQLQuery($tablename);
+		$query = new SQLQuery($db);
+		$query = $query->selectAll()->from($tablename);
 		$query->where($where);
 		$results = $query->fetchAll();
-		
-		$list = new ObjectList();
-		
-		foreach ($results as $row)
+		if (!$results)
 		{
-			$model = new $classname();
-			foreach ($row as $field => $value)
+			return False;
+		}
+		else
+		{
+			$list = new ObjectList();
+			foreach ($results as $result)
 			{
-				$model->$field = $value;
+				$model = new $classname();
+				foreach ($result as $field => $value)
+				{
+					$model->$field = $value;
+					// If the field is a foreign key, replace the value with the object it points to.
+					if (get_class($model->properties[$field]) == get_class(new ForeignField()))
+					{
+						$foreignModel = $model->properties[$field]->getModel();
+						$model->$field = $foreignModel::getId($model->$field);
+					}
+				}
 			}
 			$list[] = $model;
+			return $list;
 		}
-		
-		return $list;
 	}
 	
 	// Get field with specified id.

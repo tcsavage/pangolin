@@ -31,6 +31,7 @@ class Post extends \pangolin\Model
 	public $body;
 	public $user;
 	public $date;
+	public $comments;
 
 	public function __construct()
 	{
@@ -45,6 +46,11 @@ class Post extends \pangolin\Model
 		$this->date = new \pangolin\TextField(array(
 			"order" => 3,
 			"prettyname" => "Date Posted"), null);
+		$this->comments = new \pangolin\ForeignArray(array(
+			"order" => 3,
+			"prettyname" => "Comments",
+			"model" => "\\uopcomputing\\Comment",
+			"field" => "post"), null);
 
 		parent::__construct();
 	}
@@ -56,6 +62,7 @@ class Comment extends \pangolin\Model
 	public $user;
 	public $date;
 	public $promoted;
+	public $post;
 
 	public function __construct()
 	{
@@ -72,6 +79,10 @@ class Comment extends \pangolin\Model
 		$this->promoted = new \pangolin\BoolField(array(
 			"order" => 4,
 			"prettyname" => "Promoted?"), null);
+		$this->post = new \pangolin\ForeignField(array(
+			"order" => 5,
+			"prettyname" => "Post", 
+			"model" => get_class(new Post())), null);
 
 		parent::__construct();
 	}
