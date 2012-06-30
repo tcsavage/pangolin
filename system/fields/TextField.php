@@ -35,17 +35,34 @@ class TextField extends Field
 	// TODO: render textarea for fields over a certain length.
 	public function renderInput($attributes = null)
 	{
-		$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
-		if ($attributes)
+		if ($this->maxlength)
 		{
-			$attrstrings = array();
-			foreach ($attributes as $key => $value)
+			$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
+			if ($attributes)
 			{
-				$attrstrings[] = "$key=\"$value\"";
+				$attrstrings = array();
+				foreach ($attributes as $key => $value)
+				{
+					$attrstrings[] = "$key=\"$value\"";
+				}
+				$out .= implode(" ", $attrstrings);
 			}
-			$out .= implode(" ", $attrstrings);
+			$out .= '/>';
 		}
-		$out .= '/>';
+		else
+		{
+			$out = '<textarea id="'.$this->name.'" name="'.$this->name.'"';
+			if ($attributes)
+			{
+				$attrstrings = array();
+				foreach ($attributes as $key => $value)
+				{
+					$attrstrings[] = "$key=\"$value\"";
+				}
+				$out .= implode(" ", $attrstrings);
+			}
+			$out .= '></textarea>';
+		}
 		return $out;
 	}
 
