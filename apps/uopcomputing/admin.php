@@ -2,4 +2,4 @@
 
 require_once("models.php");
 
-//\admin\Site::register(Post::name());
+\admin\Site::register(User::name());
