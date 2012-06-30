@@ -279,6 +279,16 @@ abstract class Model
 					}
 				}
 			}
+
+			// For foreign array fields.
+			$invisible = $model::getInvisibleColumns();
+			foreach ($invisible as $name => $column)
+			{
+				$m = $column->getModel();
+				$elems = $m::getWhere(array($column->getField() => $model->id));
+				$model->$name = $elems;
+			}
+			
 			$list[] = $model;
 			return $list;
 		}
