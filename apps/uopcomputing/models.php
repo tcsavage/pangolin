@@ -49,6 +49,7 @@ class Post extends \pangolin\Model
 		parent::__construct();
 	}
 }
+
 class Comment extends \pangolin\Model
 {
 	public $body;
@@ -72,6 +73,19 @@ class Comment extends \pangolin\Model
 			"order" => 4,
 			"prettyname" => "Promoted?",
 			"maxlength" => 1), null);
+
+		parent::__construct();
+	}
+}
+
+class Tag extends \pangolin\Model
+{
+	public $name;
+
+	public function __construct()
+	{
+		$this->name = new \pangolin\TextField(array(
+			"prettyname" => "Tag Name"), null);
 
 		parent::__construct();
 	}
