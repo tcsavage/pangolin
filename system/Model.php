@@ -249,7 +249,7 @@ abstract class Model
 	}
 	
 	// Get all fields conditionally.
-	public static function getWhere($where)
+	public static function getWhere($where, $except = null)
 	{
 		global $db;
 		$tablename = self::tableName();
@@ -285,10 +285,10 @@ abstract class Model
 			foreach ($invisible as $name => $column)
 			{
 				$m = $column->getModel();
-				$elems = $m::getWhere(array($column->getField() => $model->id));
+				$elems = $m::getWhere(array($column->getField() => $model->id), array($name));
 				$model->$name = $elems;
 			}
-			
+
 			$list[] = $model;
 			return $list;
 		}
