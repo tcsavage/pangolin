@@ -17,3 +17,4 @@ require_once("fields/TextField.php");
 require_once("fields/MD5Field.php");
 require_once("fields/NumericalField.php");
 require_once("fields/ForeignField.php");
+require_once("fields/BoolField.php");

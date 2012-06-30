@@ -69,10 +69,9 @@ class Comment extends \pangolin\Model
 		$this->date = new \pangolin\TextField(array(
 			"order" => 3,
 			"prettyname" => "Date Posted"), null);
-		$this->promoted = new \pangolin\NumericalField(array(
+		$this->promoted = new \pangolin\BoolField(array(
 			"order" => 4,
-			"prettyname" => "Promoted?",
-			"maxlength" => 1), null);
+			"prettyname" => "Promoted?"), null);
 
 		parent::__construct();
 	}
