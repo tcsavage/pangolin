@@ -231,7 +231,6 @@ abstract class Model
 
 			$list[] = $model;
 		}
-		die(var_dump($list));		
 		return $list;
 	}
 
@@ -257,25 +256,28 @@ abstract class Model
 		$query = new SQLQuery($db);
 		$query = $query->selectAll()->from($tablename);
 		$query->where($where);
+		$query->run();
 		$results = $query->fetchAll();
-		if (!$results)
+		
+		$list = new ObjectList();
+		
+		foreach ($results as $row)
 		{
-			return False;
-		}
-		else
-		{
-			$list = new ObjectList();
-			foreach ($results as $result)
+			$model = new $classname();
+			foreach ($row as $field => $value)
 			{
-				$model = new $classname();
-				foreach ($result as $field => $value)
+				$model->$field = $value;
+				// If the field is a foreign key, replace the value with the object it points to.
+				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
 				{
-					$model->$field = $value;
-					// If the field is a foreign key, replace the value with the object it points to.
-					if (get_class($model->properties[$field]) == get_class(new ForeignField()))
+					if (in_array($field, $except))
+					{
+						$model->$field = null;
+					}
+					else
 					{
 						$foreignModel = $model->properties[$field]->getModel();
-						$model->$field = $foreignModel::getId($model->$field);
+						$model->$field = $foreignModel::getId($model->$field, array($field));
 					}
 				}
 			}
@@ -285,19 +287,19 @@ abstract class Model
 			foreach ($invisible as $name => $column)
 			{
 				$m = $column->getModel();
-				$elems = $m::getWhere(array($column->getField() => $model->id), array($name));
+				$elems = $m::getWhere(array($column->getField() => $model->id), array($column->getField()));
 				$model->$name = $elems;
 			}
 
 			$list[] = $model;
-			return $list;
-		}
+		}		
+		return $list;
 	}
 	
 	// Get field with specified id.
-	public static function getId($id)
+	public static function getId($id, $except = null)
 	{
-		$res = self::getWhere(array("id" => $id));
+		$res = self::getWhere(array("id" => $id), $except);
 		return $res[0];
 	}
 }

@@ -4,6 +4,11 @@
 class ObjectList implements \arrayaccess, \Iterator
 {
 	public $objects = array();
+
+	public function size()
+	{
+		return count($this->objects);
+	}
 	
 	public function offsetExists($i)
 	{

@@ -19,8 +19,7 @@ function postView($vars)
 	$template = new \pangolin\Template;
 	$data = Post::getId($vars['id']);
 	$template->assign("post", $data);
-	die(var_dump($data));
-	$template->assign("commentCount", count($data->comments));
+	$template->assign("commentCount", $data->comments->size());
 	$template->assign("minipost", substr($data->body, 0, 15));
 	$template->render("postView");
 }
