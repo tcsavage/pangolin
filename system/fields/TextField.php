@@ -32,7 +32,6 @@ class TextField extends Field
 	}
 
 	// Renders HTML form control.
-	// TODO: render textarea for fields over a certain length.
 	public function renderInput($attributes = null)
 	{
 		if ($this->maxlength)

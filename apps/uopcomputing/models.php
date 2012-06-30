@@ -13,11 +13,10 @@ class User extends \pangolin\Model
 			"maxlength" => 150,
 			"order" => 1,
 			"prettyname" => "Full name"), null);
-		$this->email = new \pangolin\TextField(array(
-			"maxlength" => 200,
+		$this->email = new \pangolin\EmailField(array(
 			"order" => 2,
 			"prettyname" => "Email address"), null);
-		$this->password = new \pangolin\TextField(array(
+		$this->password = new \pangolin\PasswordField(array(
 			"order" => 3,
 			"prettyname" => "Password hash"), null);
 

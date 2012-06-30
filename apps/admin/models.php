@@ -20,7 +20,7 @@ class User extends \pangolin\Model
 			"maxlength" => 200,
 			"prettyname" => "Email Address"
 		), null);
-		$this->password = new \pangolin\MD5Field();
+		$this->password = new \pangolin\PasswordField();
 		
 		parent::__construct();
 	}
