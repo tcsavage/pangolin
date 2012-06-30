@@ -33,8 +33,16 @@ class Config extends \pangolin\Model
 	
 	public function __construct()
 	{
-		$this->k = new \pangolin\TextField(array("maxlength" => 150), null);
-		$this->v = new \pangolin\TextField(array("maxlength" => 200), null);
+		$this->k = new \pangolin\TextField(array(
+			"maxlength" => 150,
+			"prettyname" => "Key",
+			"order" => 1
+		), null);
+		$this->v = new \pangolin\TextField(array(
+			"maxlength" => 200,
+			"prettyname" => "Value",
+			"order" => 2
+		), null);
 		
 		parent::__construct();
 	}
