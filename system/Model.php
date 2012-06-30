@@ -24,7 +24,7 @@ abstract class Model
 	// Constructor. Has magic properties.
 	public function __construct()
 	{
-		$this->id = new \pangolin\NumericalField(array("autoincrement" => True, "primarykey" => True, "order" => 0), null);
+		$this->id = new \pangolin\NumericalField(array("autoincrement" => True, "primarykey" => True, "order" => 0, "prettyname" => "ID"), null);
 
 		// Grab all the variables defined in the class and loop over them.
 		$properties = get_object_vars($this);
@@ -166,6 +166,7 @@ abstract class Model
 				$query->value($key, $value->getValue());
 		}
 		$query->run();
+		return $query->insertId();
 	}
 
 	// Build a SQL statement for creating the model's table.

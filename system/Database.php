@@ -39,4 +39,9 @@ class Database
 			$link = null;
 		}
 	}
+
+	public function lastInsertId()
+	{
+		return $this->link->lastInsertId();
+	}
 }

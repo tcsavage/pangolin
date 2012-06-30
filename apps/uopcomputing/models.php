@@ -18,7 +18,6 @@ class User extends \pangolin\Model
 			"order" => 2,
 			"prettyname" => "Email address"), null);
 		$this->password = new \pangolin\TextField(array(
-			"maxlength" => 200,
 			"order" => 3,
 			"prettyname" => "Password hash"), null);
 

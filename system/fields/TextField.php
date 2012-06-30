@@ -8,7 +8,7 @@ Defines a text field that is either a TEXT or VARCHAR depending on max length.
 class TextField extends Field
 {
 	// Maximum length of text.
-	private $maxlength = 200;
+	private $maxlength = null;
 	
 	// Default constructor.
 	public function __construct($options, $value)
@@ -50,10 +50,9 @@ class TextField extends Field
 	}
 
 	// Returns type for SQL representation.
-	// TODO: use TEXT, LONGTEXT for very high max length or null.
 	public function SQLType()
 	{
-		return "VARCHAR";
+		return ($this->maxlength) ? "VARCHAR" : "LONGTEXT";
 	}
 
 	// Generates full SQL definition for defining a column.
@@ -61,7 +60,7 @@ class TextField extends Field
 	{
 		$elems = array();
 		$elems[] = $this->name;
-		$elems[] = $this->SQLType() . '(' . $this->maxlength . ')';
+		$elems[] = $this->SQLType() . (($this->maxlength) ? ('(' . $this->maxlength . ')') : '');
 		$elems[] = ($this->nullable) ? 'DEFAULT NULL' : 'NOT NULL';
 		if ($this->autoincrement) $elems[] = 'AUTO_INCREMENT';
 		if ($this->primarykey) $elems[] = ', PRIMARY KEY(' . $this->name . ')';

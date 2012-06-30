@@ -13,9 +13,7 @@
 	<thead>
 		<tr>
 			{foreach $hrcolumns as $column}
-			{if $column != "id"}
 			<th>{$column}</th>
-			{/if}
 			{/foreach}
 		</tr>
 	</thead>
@@ -23,9 +21,7 @@
 		{foreach $data as $record}
 		<tr>
 			{foreach $columns as $column}
-			{if $column != "id"}
 			<td>{$record->$column}</td>
-			{/if}
 			{/foreach}
 		</tr>
 		{/foreach}

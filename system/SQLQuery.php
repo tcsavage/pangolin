@@ -158,6 +158,11 @@ class SQLQuery
 		return $statement;
 	}
 
+	public function insertId()
+	{
+		return $this->database->lastInsertId();
+	}
+
 	public function fetchAll()
 	{
 		return $this->run()->fetchAll();

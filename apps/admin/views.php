@@ -74,6 +74,5 @@ function ajaxInsert($vars, $post)
 	{
 		$new->$name = $value;
 	}
-	$new->create();
-	echo(var_dump($new));
+	echo($new->create());
 }
