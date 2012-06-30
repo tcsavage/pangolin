@@ -11,7 +11,7 @@ function index()
 {
 	$template = new \pangolin\Template;
 	templateSetup($template);
-	$template->render("base");
+	$template->renderForceApp("base");
 }
 
 function viewApp($vars)
@@ -25,7 +25,7 @@ function viewApp($vars)
 	$template->assign("app", $appManifest);
 	$template->assign("appname", $appManifest->name); // Needed for weird bug.
 	$template->assign("models", $models);
-	$template->render("viewApp");
+	$template->renderForceApp("viewApp");
 }
 
 function viewModel($vars)
@@ -43,7 +43,7 @@ function viewModel($vars)
 	$template->assign("hrcolumns", $model::getPrettyColumnNamesS());
 	$template->assign("model", $vars['model']);
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
-	$template->render("viewModel");
+	$template->renderForceApp("viewModel");
 
 	echo("<h3>SQL queries run on this page:</h3><pre>");
 	print_r(\pangolin\Debug::getQueries());
@@ -61,7 +61,7 @@ function modelInsert($vars)
 	$t = $fullmodelname::getColumnMetadata();
 	$template->assign("model", $vars['model']);
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
-	$template->render("modelInsert");
+	$template->renderForceApp("modelInsert");
 }
 
 function ajaxInsert($vars, $post)

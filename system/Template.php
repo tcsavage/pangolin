@@ -44,9 +44,20 @@ class Template
 		echo($html);
 	}
 
+	public function renderForceApp($name)
+	{
+		foreach ($this->vars as $key => $value)
+		{
+			self::$smarty->assign($key, $value);
+		}
+
+		$html = self::$smarty->fetch("file:[app]".$name.".tpl");
+		echo($html);	
+	}
+
 	public static function addTemplateDir($string)
 	{
 		if (self::$smarty == null) self::$smarty = new \Smarty();
-		self::$smarty->addTemplateDir($string);
+		self::$smarty->addTemplateDir($string, "app");
 	}
 }
