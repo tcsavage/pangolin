@@ -144,12 +144,9 @@ class SQLQuery
 
 	public function run()
 	{
-		try
-		{
-			$statement = $this->database->link->prepare($this->build());
-			$statement->execute();
-			$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		}
+		$statement = $this->database->link->prepare($this->build());
+		$statement->execute();
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 
 		return $statement;
 	}
