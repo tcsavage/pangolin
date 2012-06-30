@@ -25,7 +25,7 @@
 								<div class="content">
 									{$post->body}
 								</div>
-								<small>{$post->date} | <a href="#">31 comments</a> | <a href="#">Permalink</a></small>
+								<small>{$post->date} | <a href="#">31 comments</a> | <a href="/post/{$post->id}">Permalink</a></small>
 								<small><a class="label">corgma</a> <a class="label">exam</a></small>
 							</div>
 							{/foreach}

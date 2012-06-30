@@ -15,7 +15,7 @@
 						</div>
 						<div>
 							<p>{$post->body}</p>
-							<small>Posted {$post->date}. <a href="#">Permalink</a></small>
+							<small>Posted {$post->date}. <a href="/post/{$post->id}">Permalink</a></small>
 						</div>
 						<hr>
 						<div class="comments">
