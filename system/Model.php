@@ -229,10 +229,9 @@ abstract class Model
 				$model->$name = $elems;
 			}
 
-			//die(print_r($model, true));
 			$list[] = $model;
 		}
-		
+		die(var_dump($list));		
 		return $list;
 	}
 
@@ -288,30 +287,6 @@ abstract class Model
 	// Get field with specified id.
 	public static function getId($id)
 	{
-		global $db;
-		$tablename = self::tableName();
-		$classname = get_called_class();
-		$query = new SQLQuery($db);
-		$query = $query->selectAll()->from($tablename)->where("id", $id);
-		$result = $query->fetch();
-		if (!$result)
-		{
-			return False;
-		}
-		else
-		{
-			$model = new $classname();
-			foreach ($result as $field => $value)
-			{
-				$model->$field = $value;
-				// If the field is a foreign key, replace the value with the object it points to.
-				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
-				{
-					$foreignModel = $model->properties[$field]->getModel();
-					$model->$field = $foreignModel::getId($model->$field);
-				}
-			}
-			return $model;
-		}
+		$this->getWhere(array("id" => $id));
 	}
 }
