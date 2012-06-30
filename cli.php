@@ -23,6 +23,33 @@ switch ($argv[1])
 			$makequery->run();
 		}
 	break;
+	case "testdata":
+		$user1 = new \uopcomputing\User();
+		$user1->name = "bob";
+		$user1->email = "bob@bob.com";
+		$user1->password = "6656a57c6d7r7";
+		$u1id = $user1->create();
+		$post1 = new \uopcomputing\Post();
+		$post1->body = "post 1 body";
+		$post1->user = $u1id;
+		$post1->date = "now";
+		$p1id = $post1->create();
+		$comment1 = new \uopcomputing\Comment();
+		$comment1->body = "comment body";
+		$comment1->user = $u1id;
+		$comment1->date = "now";
+		$comment1->promoted = 0;
+		$comment1->post = $p1id;
+		$c1id = $comment1->create();
+		$page1 = new \uopcomputing\Page();
+		$page1->name = "Test Static Page";
+		$page1->content = "<h1>This is a heading</h1><p>this is a paragraph</p>";
+		$page1->slug = "test";
+		$page1->create();
+
+	break;
+	case "dropall":
+		break;
 
 	default:
 		echo("Unknown command.\n");
