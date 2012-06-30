@@ -162,7 +162,8 @@ abstract class Model
 		$query = $query->insert($tablename);
 		foreach ($this->properties as $key => $value)
 		{
-			if ($key != "id") $query->value($key, $value->getValue());
+			if ($key != "id" && is_subclass_of($value, "\\pangolin\\Field"))
+				$query->value($key, $value->getValue());
 		}
 		$query->run();
 	}
