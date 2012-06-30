@@ -1,2 +1,0 @@
-{extends file="uopbase.tpl"}
-{}

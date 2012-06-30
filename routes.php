@@ -8,5 +8,6 @@ foreach ($installedapps as $app)
 }
 
 $routes = array();
+$routes["test"] = "\\uopcomputing\\boardView";
 $routes["admin"] = \admin\routes();
 $routes[""] = "\\uopcomputing\\index";

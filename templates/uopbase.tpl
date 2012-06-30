@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{block name=title}{/block}</title>
+	<title>{block name="title"}{/block}</title>
 	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/uop/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
@@ -55,7 +55,7 @@
 
 	<div class="container">
 		<div class="row">
-					{block name=main}<article class="span8">
+					{block name="main"}<article class="span8">
 						<h1><span>Board Posts &raquo;</span> All</h1>
 						<div class="posts">
 							<div class="post alert">
