@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{block name=title}UoP Computing{/block}</title>
+	<title>{block name=title}{/block}</title>
 	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/uop/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
@@ -54,8 +54,8 @@
 	</header>
 
 	<div class="container">
-		{block name=main}<div class="row">
-					<article class="span8">
+		<div class="row">
+					{block name=main}<article class="span8">
 						<h1><span>Board Posts &raquo;</span> All</h1>
 						<div class="posts">
 							<div class="post alert">
@@ -103,8 +103,8 @@
 								<small><a class="label">haskell</a> <a class="label">template-haskell</a> <a class="label">procap</a> <a class="label">computer-science</a> <a class="label">type-level-programming</a></small>
 							</div>
 						</div>
-					</article>
-					<aside class="span4">
+					</article>{/block}
+					{block name="sidebar"}<aside class="span4">
 						<h3>Subscriptions</h3>
 						<div class="tags">
 							<a class="label">haskell</a>
@@ -119,7 +119,7 @@
 							<input type="text" class="input-small" placeholder="Tag">
 							<button type="submit" class="btn">Add</button>
 						</form>
-					</aside>
+					</aside>{/block}
 				</div>
 				<hr>
 				<div class="row">
@@ -170,7 +170,7 @@
 						</p>
 						<h3>Related Posts</h3>
 					</aside>
-				</div>{/block}
+				</div>
 	</div>
 
 	<footer>
