@@ -21,7 +21,9 @@ function render_error_page(Exception $e)
 	<p>
 		<strong>File:</strong> <?=$e->getFile()?><br/>
 		<strong>Line:</strong> <?=$e->getLine()?><br/>
-		<strong>Code:</strong> <?=$e->getCode()?>
+		<strong>Code:</strong> <?=$e->getCode()?><br/>
+		<strong>Full Exception:</strong> <br/> 
+		<pre><?php print_r($e);?></pre>
 	</p>
 	<h2>Backtrace:</h2>
 	<pre><?php print_r($e->getTrace()); ?></pre>
