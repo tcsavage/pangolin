@@ -1,6 +1,6 @@
 {extends file="uopbase.tpl"}
 
-{block name="title"}{$post->user->name} - {$minipost}{/block}
+{block name="title"}{$post->user->name} - {$post->content|shrink:15}...{/block}
 
 {block name="main"}<article class="span8">
 						<div class="username">

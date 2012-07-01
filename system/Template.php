@@ -15,6 +15,7 @@ class Template
 		self::$smarty->addTemplateDir(array(ROOT . "/templates/"));
 
 		self::$smarty->registerPlugin("modifier","pluralize", "smarty_modifier_pluralize");
+		self::$smarty->registerPlugin("modifier", "shrink", "smarty_modifier_shrink");
 
 		// Pangolin variables.
 		global $projectname;
