@@ -12,6 +12,7 @@
 							</div>
 							{/foreach}
 							{foreach $data as $post}
+							{if $post->user->banned != 1 || $post->approved}
 							<div class="post">
 								<img src="tempimg/y.jpg" class="profilepic">
 								<div class="username">
@@ -30,6 +31,8 @@
 								<small>{$post->date|date_format:"%d/%m/%Y"} | <a href="/post/{$post->id}#comments">{$post->comments->size()} Comments</a> | <a href="/post/{$post->id}">Permalink</a></small>
 								<small><a class="label">corgma</a> <a class="label">exam</a></small>
 							</div>
+							{else}
+							{/if}
 							{/foreach}
 						</div>
 					</article>{/block}

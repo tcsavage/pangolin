@@ -7,6 +7,8 @@ class User extends \pangolin\Model
 	public $password;
 	//public $karma;
 	public $flair;
+	public $banned;
+
 
 	public function __construct()
 	{
@@ -24,7 +26,9 @@ class User extends \pangolin\Model
 			"maxlength" => 100, //implement roll over expanding for flairs longer than x(maybe 50)
 			"order" => 4,
 			"prettyname" => "User Flair"), null);
-
+		$this->banned = new \pangolin\BoolField(array(
+			"prettyname" => "User Banned?",
+			"order" => 5), null);
 		parent::__construct();
 	}
 }
@@ -35,6 +39,7 @@ class Post extends \pangolin\Model
 	public $user;
 	public $date;
 	public $comments;
+	public $approved;
 
 	public function __construct()
 	{
@@ -50,10 +55,13 @@ class Post extends \pangolin\Model
 			"order" => 3,
 			"prettyname" => "Date Posted"), null);
 		$this->comments = new \pangolin\ForeignArray(array(
-			"order" => 3,
+			"order" => 4,
 			"prettyname" => "Comments",
 			"model" => "\\uopcomputing\\Comment",
 			"field" => "post"), null);
+		$this->approved = new \pangolin\BoolField(array(
+			"prettyname" => "Post Manually Approved?",
+			"order" => 5), null);
 
 		parent::__construct();
 	}
