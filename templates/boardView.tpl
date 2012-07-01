@@ -5,10 +5,12 @@
 {block name="main"}<article class="span8">
 						<h1><span>Board Posts &raquo;</span> All</h1>
 						<div class="posts">
+							{foreach $announcements as $alert}
 							<div class="post alert">
-								<h3>Announcement</h3>
-								<p>Some stuff.</p>
+								<h3>{$alert->title}</h3>
+								<p>{$alert->body}</p>
 							</div>
+							{/foreach}
 							{foreach $data as $post}
 							<div class="post">
 								<img src="tempimg/y.jpg" class="profilepic">

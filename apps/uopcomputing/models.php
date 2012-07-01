@@ -121,3 +121,22 @@ class Page extends \pangolin\Model
 		parent::__construct();
 	}
 }
+
+class Announcement extends \pangolin\Model
+{
+	public $title;
+	public $body;
+
+	public function __construct()
+	{
+		$this->title = new \pangolin\TextField(array(
+			"maxlength" => 100,
+			"order" => 1,
+			"prettyname" => "Announcement Title"), null);
+		$this->body = new \pangolin\TextField(array(
+			"order" => 2,
+			"prettyname" => "Announcement Body"), null);
+
+		parent::__construct();
+	}
+} 

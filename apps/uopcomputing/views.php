@@ -10,7 +10,9 @@ function boardView()
 {
 	$template = new \pangolin\Template;
 	$data = Post::getAll();
+	$announcements = Announcement::getAll();
 	$template->assign("data", $data);
+	$template->assign("announcements", $announcements);
 	$template->render("boardView");
 }
 

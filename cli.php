@@ -46,6 +46,10 @@ switch ($argv[1])
 		$page1->content = "<h1>This is a heading</h1><p>this is a paragraph</p>";
 		$page1->slug = "test";
 		$page1->create();
+		$alert1 = new \uopcomputing\Announcement();
+		$alert1->title = "Announcment Title";
+		$alert1->body = "Announcment Body";
+		$alert1->create();
 
 	break;
 	case "dropall":
