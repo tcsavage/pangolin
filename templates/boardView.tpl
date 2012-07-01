@@ -27,7 +27,7 @@
 								<div class="content">
 									{$post->body}
 								</div>
-								<small>{$post->date} | <a href="/post/{$post->id}#comments">{$post->comments->size()} Comments</a> | <a href="/post/{$post->id}">Permalink</a></small>
+								<small>{$post->date|date_format:"%d/%m/%Y"} | <a href="/post/{$post->id}#comments">{$post->comments->size()} Comments</a> | <a href="/post/{$post->id}">Permalink</a></small>
 								<small><a class="label">corgma</a> <a class="label">exam</a></small>
 							</div>
 							{/foreach}

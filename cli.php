@@ -37,7 +37,7 @@ switch ($argv[1])
 		$comment1 = new \uopcomputing\Comment();
 		$comment1->body = "comment body";
 		$comment1->user = $u1id;
-		$comment1->date = "now";
+		$comment1->date = "2012-07-02";
 		$comment1->promoted = 0;
 		$comment1->post = $p1id;
 		$c1id = $comment1->create();

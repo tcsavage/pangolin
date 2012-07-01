@@ -7,6 +7,7 @@ class User extends \pangolin\Model
 	public $password;
 	//public $karma;
 
+
 	public function __construct()
 	{
 		$this->name = new \pangolin\TextField(array(
@@ -19,6 +20,7 @@ class User extends \pangolin\Model
 		$this->password = new \pangolin\PasswordField(array(
 			"order" => 3,
 			"prettyname" => "Password hash"), null);
+
 
 		parent::__construct();
 	}
@@ -71,7 +73,7 @@ class Comment extends \pangolin\Model
 			"order" => 2,
 			"prettyname" => "User", 
 			"model" => get_class(new User())), null);
-		$this->date = new \pangolin\TextField(array(
+		$this->date = new \pangolin\DateField(array(
 			"order" => 3,
 			"prettyname" => "Date Posted"), null);
 		$this->promoted = new \pangolin\BoolField(array(

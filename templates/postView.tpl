@@ -15,7 +15,7 @@
 						</div>`
 						<div>
 							<p>{$post->body}</p>
-							<small>Posted {$post->date}. {$commentCount} comments <a href="/post/{$post->id}">Permalink</a></small>
+							<small>Posted {$post->date|date_format:"%d/%m/%Y"}. {$commentCount} comments <a href="/post/{$post->id}">Permalink</a></small>
 						</div>
 						<hr>
 						<div class="comments"><a name="comments"></a>
@@ -26,7 +26,9 @@
 								<h3>{$comment->user->name}</h3>
 								<div class="content">
 									<p>{$comment->body}</p>
+									<small>Posted: {$comment->date|date_format:"%d/%m/%Y"}</small>
 								</div>
+
 							</div>
 							{/foreach}
 						</div>
@@ -52,7 +54,7 @@
 						</p>
 						<p>
 							<strong>Posted</strong>
-							{$post->date}
+							{$post->date|date_format:"%d/%m/%Y"}
 							<!-- <time datetime="2012-05-22">May 22 2012 at 13:35</time> -->
 						</p>
 						<h3>Related Posts</h3>
