@@ -38,14 +38,7 @@
 	<script src="/static/modernizr/modernizr.min.js"></script>
 	<script src="/static/webshims/js/minified/polyfiller.js"></script>
 	<script>
-		//implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
 		$.webshims.polyfill();
-		//or load only specific features you need
-		//$.webshims.polyfill('forms json-storage');
-		
-		$(function(){
-		//use all implemented API-features on DOM-ready
-		});
 	</script>
 
 	{block name=addheader}{/block}
