@@ -28,6 +28,7 @@ switch ($argv[1])
 		$user1->name = "bob";
 		$user1->email = "bob@bob.com";
 		$user1->password = "6656a57c6d7r7";
+		$user1->flair = "IM A REAL FLAIR!"
 		$u1id = $user1->create();
 		$post1 = new \uopcomputing\Post();
 		$post1->body = "post 1 body";

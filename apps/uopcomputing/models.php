@@ -6,7 +6,7 @@ class User extends \pangolin\Model
 	public $email;
 	public $password;
 	//public $karma;
-
+	public $flair;
 
 	public function __construct()
 	{
@@ -20,7 +20,10 @@ class User extends \pangolin\Model
 		$this->password = new \pangolin\PasswordField(array(
 			"order" => 3,
 			"prettyname" => "Password hash"), null);
-
+		$this->flair = new \pangolin\TextField(array(
+			"maxlength" => 100, //implement roll over expanding for flairs longer than x(maybe 50)
+			"order" => 4,
+			"prettyname" => "User Flair"), null);
 
 		parent::__construct();
 	}

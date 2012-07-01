@@ -20,7 +20,7 @@
 										<img src="tempimg/y.jpg" class="profilepic-large">
 										<div class="userbox-detail">
 											<h3>{$post->user->name}</h3>
-											<span class="label">Year 1 Computing</span>
+											<span class="label">{$post->user->flair}</span>
 										</div>
 									</div>
 								</div>
