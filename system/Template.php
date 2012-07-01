@@ -42,8 +42,9 @@ class Template
 			self::$smarty->assign($key, $value);
 		}
 
-		$html = self::$smarty->fetch($name.".tpl");
-		echo($html);
+		//$html = self::$smarty->fetch($name.".tpl");
+		//echo($html);
+		self::$smarty->display($name.".tpl");
 	}
 
 	public function renderForceApp($name)
