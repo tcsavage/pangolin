@@ -8,7 +8,7 @@ class User extends \pangolin\Model
 	//public $karma;
 	public $flair;
 	public $banned;
-
+	public $roll;
 
 	public function __construct()
 	{
@@ -29,6 +29,10 @@ class User extends \pangolin\Model
 		$this->banned = new \pangolin\BoolField(array(
 			"prettyname" => "User Banned?",
 			"order" => 5), null);
+		$this->roll = new \pangolin\EnumField(array(
+			"prettyname" => "User roll",
+			"order" => 6,
+			"options" => array("user" => "Normal user", "admin" => "Administrator")), null);
 		parent::__construct();
 	}
 }
