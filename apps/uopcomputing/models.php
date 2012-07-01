@@ -41,7 +41,7 @@ class Post extends \pangolin\Model
 			"prettyname" => "User", 
 			"helptext" => "Foreign key of posting user.", 
 			"model" => get_class(new User())), null);
-		$this->date = new \pangolin\TextField(array(
+		$this->date = new \pangolin\DateField(array(
 			"order" => 3,
 			"prettyname" => "Date Posted"), null);
 		$this->comments = new \pangolin\ForeignArray(array(

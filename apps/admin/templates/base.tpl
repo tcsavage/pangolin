@@ -31,6 +31,23 @@
 	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
 	<link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 
+
+	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.js"></script>
+	<script src="/static/json/json2.js"></script>
+	<script src="/static/modernizr/modernizr.min.js"></script>
+	<script src="/static/webshims/js/minified/polyfiller.js"></script>
+	<script>
+		//implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
+		$.webshims.polyfill();
+		//or load only specific features you need
+		//$.webshims.polyfill('forms json-storage');
+		
+		$(function(){
+		//use all implemented API-features on DOM-ready
+		});
+	</script>
+
 	{block name=addheader}{/block}
   </head>
 
@@ -158,13 +175,6 @@
 	  </footer>
 
 	</div><!--/.fluid-container-->
-
-	<!-- Le javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
-	<script src="/static/bootstrap/js/bootstrap.js"></script>
-	<script src="/static/json/json2.js"></script>
 
 	{block name=final}{/block}
   </body>

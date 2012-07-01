@@ -16,6 +16,7 @@ require_once("fields/Field.php");
 require_once("fields/TextField.php");
 require_once("fields/EmailField.php");
 require_once("fields/PasswordField.php");
+require_once("fields/DateField.php");
 require_once("fields/NumericalField.php");
 require_once("fields/ForeignField.php");
 require_once("fields/ForeignArray.php");

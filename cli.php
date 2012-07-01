@@ -32,7 +32,7 @@ switch ($argv[1])
 		$post1 = new \uopcomputing\Post();
 		$post1->body = "post 1 body";
 		$post1->user = $u1id;
-		$post1->date = "now";
+		$post1->date = "2012-07-01";
 		$p1id = $post1->create();
 		$comment1 = new \uopcomputing\Comment();
 		$comment1->body = "comment body";

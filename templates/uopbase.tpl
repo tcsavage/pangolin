@@ -5,6 +5,20 @@
 	<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="/static/uop/css/main.css">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <script src="/static/modernizr/modernizr.min.js"></script>
+	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/webshims/js/minified/polyfiller.js"></script>
+    <script>
+		//implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
+		$.webshims.polyfill();
+		//or load only specific features you need
+		//$.webshims.polyfill('forms json-storage');
+		
+		$(function(){
+		//use all implemented API-features on DOM-ready
+		});
+	</script>
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -131,8 +145,5 @@
 			<p><a href="#">Copyright notice</a> | <a href="#">Privacy policy</a> | <a href="#">About the project</a> | <a href="#">Contribute</a></p>
 		</div>
 	</footer>
-
-	<script src="jquery/jquery-1.7.2.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
