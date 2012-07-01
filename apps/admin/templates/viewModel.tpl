@@ -21,7 +21,7 @@
 		{foreach $data as $record}
 		<tr>
 			{foreach $columns as $column}
-			<td>{$record->$column}</td>
+			<td>{$record->$column|shrink:50}</td>
 			{/foreach}
 		</tr>
 		{/foreach}

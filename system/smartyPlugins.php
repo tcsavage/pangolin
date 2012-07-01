@@ -11,5 +11,5 @@ function smarty_modifier_pluralize($string, $count = 0)
 
 function smarty_modifier_shrink($string, $size)
 {
-	return substr($string, 0, $size);
+	return (strlen($string) > $size) ? substr($string, 0, $size) . "..." : $string;
 }
