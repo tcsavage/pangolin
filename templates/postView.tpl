@@ -12,7 +12,7 @@
 									<span class="label">{$post->user->flair}</span>
 								</div>
 							</div>
-						</div>`
+						</div>
 						<div>
 							<p>{$post->body}</p>
 							<small>Posted {$post->date|date_format:"%d/%m/%Y"}. {$commentCount} comments <a href="/post/{$post->id}">Permalink</a></small>
