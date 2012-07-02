@@ -24,7 +24,10 @@ class NumericalField extends Field
 
 	public function renderInput($attributes = null)
 	{
-		$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
+		$out = '<input type="number" id="'.$this->name.'" name="'.$this->name.'"';
+		if ($this->min) $out .= ' min="'.$this->min.'"';
+		if ($this->max) $out .= ' max="'.$this->max.'"';
+		if ($this->step) $out .= ' step="'.$this->step.'"';
 		if ($attributes)
 		{
 			$attrstrings = array();
