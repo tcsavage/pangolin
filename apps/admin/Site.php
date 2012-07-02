@@ -6,11 +6,26 @@ class Site
 
 	public static function getModels()
 	{
+		if (!self::$registeredModels)
+		{
+			$classes = array();
+			foreach (get_declared_classes() as $className)
+			{
+				if (is_subclass_of($className, "\\pangolin\\Model"))
+				{
+					$classes[] = $className;
+					self::register($className);
+				}
+			}
+		}
 		return self::$registeredModels;
 	}
 
 	public static function getAppModels($app)
 	{
+		// Make sure modeldb is up to date.
+		if (!self::$registeredModels) self::getModels();
+
 		$out = array();
 		foreach (self::$registeredModels as $model)
 		{
