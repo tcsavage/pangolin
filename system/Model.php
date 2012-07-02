@@ -163,7 +163,7 @@ abstract class Model
 		foreach ($this->properties as $key => $value)
 		{
 			if ($key != "id" && is_subclass_of($value, "\\pangolin\\Field"))
-				$query->value($key, $value->getValue());
+				$query->value($key, $value->processForDB($value->getValue()));
 		}
 		$query->run();
 		return $query->insertId();
@@ -205,7 +205,7 @@ abstract class Model
 			$model = new $classname();
 			foreach ($row as $field => $value)
 			{
-				$model->$field = $value;
+				$model->$field = $model->properties[$field]->processFromDB($value);
 				// If the field is a foreign key, replace the value with the object it points to.
 				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
 				{

@@ -57,6 +57,24 @@ abstract class Field
 		$this->value = $value;
 	}
 
+	// Validate input.
+	public function validate($value)
+	{
+		return true;
+	}
+
+	// Process data before saving to database.
+	public function processForDB($value)
+	{
+		return $value;
+	}
+
+	// Process data from database.
+	public function processFromDB($value)
+	{
+		return $value;
+	}
+
 	// Renders HTML form control.
 	public function renderInput($attributes = null)
 	{
