@@ -157,3 +157,21 @@ class Announcement extends \pangolin\Model
 		parent::__construct();
 	}
 } 
+
+class Sidebar extends \pangolin\Model
+{
+	public $name;
+	public $body;
+
+	public function __construct()
+	{
+		$this->name = new \pangolin\TextField(array(
+			"order" => 1,
+			"prettyname" => "Sidebar Name"), null);
+		$this->body = new \pangolin\TextField(array(
+			"order" => 2,
+			"prettyname" => "Sidebar Body"), null);
+
+		parent::__construct();
+	}
+}
