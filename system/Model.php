@@ -190,6 +190,7 @@ abstract class Model
 	// Get all fields from the database.
 	public static function getAll($except = null)
 	{
+		// Get records from database.
 		global $db;
 		$tablename = self::tableName();
 		$classname = get_called_class();
@@ -198,23 +199,32 @@ abstract class Model
 		$query->run();
 		$results = $query->fetchAll();
 		
+		// Create new ObjectLIst for storing model objects.
 		$list = new ObjectList();
 		
+		// For each result from database...
 		foreach ($results as $row)
 		{
+			// Create new model object to store data.
 			$model = new $classname();
+
+			// For each column (field) in the row we got from the database...
 			foreach ($row as $field => $value)
 			{
+				// Set the data in the model object.
 				$model->$field = $model->properties[$field]->processFromDB($value);
+
 				// If the field is a foreign key, replace the value with the object it points to.
 				if (get_class($model->properties[$field]) == get_class(new ForeignField()))
 				{
+					// Ignore if we were told to ignore this column.
 					if (in_array($field, $except))
 					{
 						$model->$field = null;
 					}
 					else
 					{
+						// Replace foreign id with foreign model object returned from getId.
 						$foreignModel = $model->properties[$field]->getModel();
 						$model->$field = $foreignModel::getId($model->$field);
 					}
@@ -223,6 +233,8 @@ abstract class Model
 
 			// For foreign array fields.
 			$invisible = $model::getInvisibleColumns();
+
+			// For each invisible column, get an array of the model objects referencing this record.
 			foreach ($invisible as $name => $column)
 			{
 				$m = $column->getModel();
@@ -230,6 +242,7 @@ abstract class Model
 				$model->$name = $elems;
 			}
 
+			// Add this model to the object list to return.
 			$list[] = $model;
 		}
 		return $list;
