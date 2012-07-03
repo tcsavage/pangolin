@@ -12,6 +12,7 @@
 <table class="table table-striped table-bordered table-condensed">
 	<thead>
 		<tr>
+			<th width="40"></th>
 			{foreach $hrcolumns as $column}
 			<th>{$column}</th>
 			{/foreach}
@@ -20,6 +21,10 @@
 	<tbody>
 		{foreach $data as $record}
 		<tr>
+			<td>
+				<a href="{$modelname}/edit/{$record->id}"><i class="icon-edit"></i></a>
+				<a href="{$modelname}/delete/{$record->id}"><i class="icon-trash"></i></a>
+			</td>
 			{foreach $columns as $column}
 			<td>{$record->$column|shrink:50}</td>
 			{/foreach}
