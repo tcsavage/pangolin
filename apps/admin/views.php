@@ -67,12 +67,20 @@ function modelInsert($vars)
 function ajaxInsert($vars, $post)
 {
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
-	//header("HTTP/1.0 404 Not Found");
 	$data = json_decode($_POST['record']);
 	$new = new $fullmodelname();
 	foreach ($data as $name => $value)
 	{
 		$new->$name = $value;
 	}
-	echo($new->create());
+
+	try
+	{
+		echo($new->create());
+	}
+	catch (\Exception $e)
+	{
+		\pangolin\set_http_response_code(500);
+		die($e->getMessage());
+	}
 }
