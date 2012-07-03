@@ -19,7 +19,10 @@ class User extends \pangolin\Model
 			"order" => 2,
 			"prettyname" => "Email Address"
 		), null);
-		$this->password = new \pangolin\PasswordField();
+		$this->password = new \pangolin\PasswordField(array(
+			"order" => 3,
+			"prettyname" => "Password"
+		), null);
 		
 		parent::__construct();
 	}
