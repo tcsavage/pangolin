@@ -31,6 +31,12 @@ class PasswordField extends Field
 		parent::setValue($value);
 	}
 
+	// Hash value before saving.
+	public function processForDB($value)
+	{
+		return md5($value);
+	}
+
 	// Renders HTML form control.
 	public function renderInput($attributes = null)
 	{

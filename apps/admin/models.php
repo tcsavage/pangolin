@@ -15,9 +15,8 @@ class User extends \pangolin\Model
 			"helptext" => "The username used to log onto the site."
 		), null);
 
-		$this->email = new \pangolin\TextField(array(
+		$this->email = new \pangolin\EmailField(array(
 			"order" => 2,
-			"maxlength" => 200,
 			"prettyname" => "Email Address"
 		), null);
 		$this->password = new \pangolin\PasswordField();
