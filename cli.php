@@ -25,10 +25,10 @@ switch ($argv[1])
 	break;
 	case "testdata":
 		$user1 = new \uopcomputing\User();
-		$user1->name = "bob";
-		$user1->email = "bob@bob.com";
-		$user1->password = "6656a57c6d7r7";
-		$user1->flair = "IM A REAL FLAIR!";
+		$user1->name = "Yorgsef";
+		$user1->email = "yorgsef@example.com";
+		$user1->password = "password";
+		$user1->flair = "Year 1 - Computing";
 		$user1->banned = 0;
 		$u1id = $user1->create();
 		$user2 = new \uopcomputing\User();
@@ -38,8 +38,15 @@ switch ($argv[1])
 		$user2->flair = "gay flair";
 		$user2->banned = 1;
 		$u2id = $user2->create();
+		$user3 = new \uopcomputing\User();
+		$user3->name = "Roddynf";
+		$user3->email = "roddynf@example.com";
+		$user3->password = "password";
+		$user3->flair = "Year 2 - Awesome";
+		$user3->banned = 0;
+		$u3id = $user3->create();
 		$post1 = new \uopcomputing\Post();
-		$post1->body = "post 1 body";
+		$post1->body = "This is an example post about something, maybe.";
 		$post1->user = $u1id;
 		$post1->date = "2012-07-01";
 		$p1id = $post1->create();
@@ -49,8 +56,8 @@ switch ($argv[1])
 		$post2->date = "2012-07-02";
 		$p2id = $post2->create();
 		$comment1 = new \uopcomputing\Comment();
-		$comment1->body = "comment body";
-		$comment1->user = $u1id;
+		$comment1->body = "Example comment.";
+		$comment1->user = $u3id;
 		$comment1->date = "2012-07-02";
 		$comment1->promoted = 0;
 		$comment1->post = $p1id;
