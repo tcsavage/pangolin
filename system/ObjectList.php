@@ -5,6 +5,11 @@ class ObjectList implements \arrayaccess, \Iterator
 {
 	public $objects = array();
 
+	public function __toString()
+	{
+		return "ObjectList (".count($this->objects).")";
+	}
+
 	public function size()
 	{
 		return count($this->objects);
