@@ -78,6 +78,7 @@ class Comment extends \pangolin\Model
 	public $date;
 	public $promoted;
 	public $post;
+	public $karma;
 
 	public function __construct()
 	{
@@ -98,6 +99,10 @@ class Comment extends \pangolin\Model
 			"order" => 5,
 			"prettyname" => "Post", 
 			"model" => get_class(new Post())), null);
+		$this->karma = new \pangolin\NumericalField(array(
+			"order" => 6,
+			"prettyname" => "Karma", 
+			"min" => 0), 0);
 
 		parent::__construct();
 	}
