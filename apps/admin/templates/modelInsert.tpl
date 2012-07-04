@@ -43,7 +43,8 @@ $("#insert").click(function(event) {
 <div class="alert alert-block alert-info fade in">
 	<a class="close" data-dismiss="alert">&times;</a>
 	<h4 class="alert-heading">Inserting Into Models</h4>
-	<p>This page gives an overview of this model and its records.</p>
+	<p>Here you can create a new record and save it into your data model. Each new record will be given a unique ID and will be displayed below when created.</p>
+	<p><a href="https://github.com/tcsavage/pangolin/wiki/Introduction-to-the-framework/" class="btn btn-info"><i class="icon-book icon-white"></i> Learn more</a></p>
 </div>
 <div class="alert alert-block alert-success fade in" id="successalert" style="display:none">
 	<a class="close" data-dismiss="alert">&times;</a>
