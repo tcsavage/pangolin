@@ -5,7 +5,9 @@
 {block name=final}
 {literal}
 <script type="text/javascript">
+$('.insertform').button();
 $("#insert").click(function(event) {
+	$("#insert").button('loading');
 	event.preventDefault();
 	var newRecord = new Object();
 	{/literal}
@@ -21,10 +23,13 @@ $("#insert").click(function(event) {
 		success: function(data, status, jqxhr) {
 			$("#newrecordid").text(data);
 			$("#successalert").fadeIn();
+			$("#insert").button('reset');
+			$('#insertform')[0].reset();
 		},
 		error: function(jqxhr, status, error) {
 			$("#errormsg").text(error);
 			$("#erroralert").fadeIn();
+			$("#insert").button('reset');
 		}
 	});
 });
@@ -67,7 +72,7 @@ $("#insert").click(function(event) {
 				{/if}
 				{/foreach}
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary" id="insert">Insert</button>
+					<button type="submit" class="btn btn-primary" id="insert" data-loading-text="inserting">Insert</button>
 					<a href="{$root}/{$app->namespace}/{$model}" class="btn">Cancel</a>
 				</div>
 			</fieldset>
