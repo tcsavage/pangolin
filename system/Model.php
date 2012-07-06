@@ -112,6 +112,12 @@ abstract class Model
 		return array_keys($this->properties);
 	}
 
+	// Get properties array.
+	public function getProperties()
+	{
+		return $this->properties;
+	}
+
 	// Static get columns.
 	public static function getColumnsS()
 	{

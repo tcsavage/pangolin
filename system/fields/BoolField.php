@@ -29,6 +29,12 @@ class BoolField extends Field
 	public function renderInput($attributes = null)
 	{
 		$out = '<input type="checkbox" id="'.$this->name.'" name="'.$this->name.'"';
+
+		if ($this->getValue())
+		{
+			$out .= ' checked="checked"';
+		}
+
 		if ($attributes)
 		{
 			$attrstrings = array();

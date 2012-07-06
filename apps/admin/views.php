@@ -64,8 +64,47 @@ function modelInsert($vars)
 	$template->renderForceApp("modelInsert");
 }
 
-function ajaxInsert($vars, $post)
+function ajaxInsert($vars)
 {
+	$fullmodelname = "\\$vars[app]\\$vars[model]";
+	$data = json_decode($_POST['record']);
+	$new = new $fullmodelname();
+	foreach ($data as $name => $value)
+	{
+		$new->$name = $value;
+	}
+
+	try
+	{
+		echo($new->create());
+	}
+	catch (\Exception $e)
+	{
+		\pangolin\set_http_response_code(500);
+		die($e->getMessage());
+	}
+}
+
+function modelEdit($vars)
+{
+	$template = new \pangolin\Template;
+	templateSetup($template);
+	$fullmodelname = "\\$vars[app]\\$vars[model]";
+	$data = $fullmodelname::getId($vars['id']);
+	//die(var_dump($data));
+	$template->assign("columns", $fullmodelname::getColumnMetadata(true));
+	$template->assign("data", $data);
+	$appManifest = getAppManifest($vars['app']);
+	$template->assign("app", $appManifest);
+	$t = $fullmodelname::getColumnMetadata();
+	$template->assign("model", $vars['model']);
+	$template->assign("modelname", $vars['model']); // Needed for weird bug.
+	$template->renderForceApp("modelEdit");
+}
+
+function ajaxEdit($vars)
+{
+	die("foo");
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
 	$data = json_decode($_POST['record']);
 	$new = new $fullmodelname();

@@ -32,6 +32,12 @@ class EmailField extends Field
 	public function renderInput($attributes = null)
 	{
 		$out = '<input type="email" id="'.$this->name.'" name="'.$this->name.'"';
+		
+		if ($this->getValue())
+		{
+			$out .= ' value="'.$this->getValue().'"';
+		}
+
 		if ($attributes)
 		{
 			$attrstrings = array();

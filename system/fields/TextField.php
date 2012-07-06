@@ -37,6 +37,11 @@ class TextField extends Field
 		if ($this->maxlength)
 		{
 			$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
+			if ($this->getValue())
+			{
+				$out .= ' value="'.$this->getValue().'"';
+			}
+
 			if ($attributes)
 			{
 				$attrstrings = array();
@@ -60,7 +65,12 @@ class TextField extends Field
 				}
 				$out .= implode(" ", $attrstrings);
 			}
-			$out .= '></textarea>';
+			$out .= '>';
+			if ($this->getValue())
+			{
+				$out .= $this->getValue();
+			}
+			$out .= '</textarea>';
 		}
 		return $out;
 	}
