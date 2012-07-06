@@ -1,5 +1,9 @@
 <?php namespace uopcomputing;
 
+/**
+ * Some stuff
+ * [attrib1: testval]
+ */
 class User extends \pangolin\Model
 {
 	public $name;
