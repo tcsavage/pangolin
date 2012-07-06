@@ -22,7 +22,10 @@ class ForeignField extends Field
 
 	public function renderInput($attributes = null)
 	{
-		$out = '<input type="text" id="'.$this->name.'" name="'.$this->name.'"';
+		$model = $this->model;
+		$fks = $model::getAll();
+
+		$out = '<select id="'.$this->name.'" name="'.$this->name.'"';
 		if ($attributes)
 		{
 			$attrstrings = array();
@@ -32,7 +35,12 @@ class ForeignField extends Field
 			}
 			$out .= implode(" ", $attrstrings);
 		}
-		$out .= '/>';
+		$out .= '>';
+		foreach ($fks as $fk)
+		{
+			$out .= '<option value="'.$fk->id.'">'.$fk.'</option>';
+		}
+		$out .= '</select>';
 		return $out;
 	}
 
