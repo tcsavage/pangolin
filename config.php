@@ -20,4 +20,4 @@ $projectname = "UoP Computing";
 $siteDomain = "localhost";
 
 // Warning level 0-3. 0 for silence. 3 for everything including debug messages.
-$warninglevel = 3;
+$warninglevel = 2;

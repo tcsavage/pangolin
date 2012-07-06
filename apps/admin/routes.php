@@ -3,10 +3,10 @@
 function routes()
 {
 	return array(
-		"{app}/{model}/insert" => "modelInsert",
-		"{app}/{model}/ajaxinsert" => "ajaxInsert",
-		"{app}/{model}" => "viewModel",
-		"{app}" => "viewApp",
-		"" => "index"
+		"{app}/{model}/insert" => "\\admin\\modelInsert",
+		"{app}/{model}/ajaxinsert" => "\\admin\\ajaxInsert",
+		"{app}/{model}" => "\\admin\\viewModel",
+		"{app}" => "\\admin\\viewApp",
+		"" => "\\admin\\index"
 	);
 }

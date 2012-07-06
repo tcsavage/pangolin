@@ -2,100 +2,19 @@
 
 class Router
 {
-	private static $url = "";
+	private static $url;
 	private static $segments;
 	private static $subdomains;
 	private static $actionvars = array();
-	
-	public static function route($routes, $patternPrefix = null, $appName = null)
+
+	/**
+	 * Sets up the router with URL data.
+	 * Keeping this seperate allows for functionality to happen between setup and actual routing.
+	 */
+	public static function setup(string $url)
 	{
-		debugMsg("Starting router...");
-		debugMsg("URL: $url");
-		debugMsg("Routes: $routes");
-		debugMsg("Pattern Prefix: $patternPrefix");
-		debugMsg("App name: $appName");
+		debugMsg("Setting up router...");
 
-		// Test route segment.
-		if (self::$url == "" || self::$url == $patternPrefix)
-		{
-			Template::addTemplateDir(ROOT . "/apps/$appName/templates");
-			if ($appName)
-			{
-				$action = "\\$appName\\".$routes[""];
-				$action();
-			}
-			else
-			{
-				$routes[""]();
-			}
-			return;
-		}
-		
-		// For each route pattern...
-		foreach ($routes as $pattern => $action)
-		{
-			if ($patternPrefix) { $pattern = $patternPrefix . "/" . $pattern; }
-			if ($appName) { $action = $appName . "\\" . $action ; }
-			debugMsg("Pattern: $pattern, Action: $action");
-			// Grab pattern segments.
-			$patternsegments = explode("/", $pattern);
-			if (!$patternsegments[0]) { $patternsegments = array_shift($patternsegments); }
-
-			if (count($patternsegments) > count(self::$segments))
-			{
-				debugMsg("Pattern segments longer than URL");
-			}
-			else
-			{
-				debugMsg("Pattern segments: " . print_r($patternsegments, True));
-				
-				$regex = "";
-				
-				// For each segment...
-				foreach ($patternsegments as $i => $seg)
-				{
-					debugMsg("Pattern segment $i: $seg");
-
-					// See if it's a variable.
-					if (preg_match("~^\{.*\}$~", $seg))
-					{
-						debugMsg("Pattern segment $seg looks like a variable");
-						$varname = substr($seg, 1, strlen($seg)-2);
-						self::$actionvars[$varname] = self::$segments[$i];
-						$seg = ".*";
-					}
-					$regex .= "/" . $seg;
-				}
-				$regex = substr($regex, 1);
-				debugMsg("Regex: $regex");
-				if (preg_match("~^" . $regex . "$~", self::$url) || is_array($action))
-				{
-					if (is_array($action))
-					{
-						debugMsg("Using sub routes ($pattern)...\n");
-						$r = new Router($url, $action, $pattern, $patternsegments[0]); // Replace this with a better way...
-					}
-					else
-					{
-						$appAction = explode("\\", $action);
-						debugMsg("Matched");
-						debugMsg("App action: " . print_r($appAction, True));
-						Template::addTemplateDir(ROOT . "/apps/$appAction[0]/templates");
-						$action(self::$actionvars);
-					}
-					return;
-				}
-				else
-				{
-					debugMsg("Regex failed");
-				}
-			}
-		}
-		debugMsg("No match");
-	}
-
-	public static function setup($url)
-	{
 		// Grab subdomain.
 		$parsedUrl = parse_url($_SERVER['HTTP_HOST']);
 		if (isset($parsedUrl['host']))
@@ -114,8 +33,150 @@ class Router
 		self::$url = rtrim($url,"/");
 		self::$segments = explode("/", self::$url);
 
-		debugMsg("URL: self::$url");
-		debugMsg("Segments: " . print_r(self::$segments, True));
+		debugMsg("URL segments: ".print_r(self::$segments, true));
+	}
+
+	/**
+	 * Tries to work out what function to call given the request URL.
+	 * Returns a function reference or throws an exception.
+	 */
+	public static function route(array $routes, $unconsumed = null)
+	{
+		if (self::$url === null)
+		{
+			throw new \Exception("Router not ready");
+		}
+
+		if ($unconsumed === null)
+		{
+			$unconsumed = self::$segments;
+		}
+		
+		debugMsg("Routing on: ".print_r($unconsumed, true));
+		debugMsg("Routing with: ".print_r($routes, true));
+
+		if (count($unconsumed) == 0 || $unconsumed[0] == "")
+		{
+			debugMsg("Nothing to consume");
+			if (is_array($routes[""]))
+			{
+				return self::route($routes[""], $unconsumed);
+			}
+			else
+			{
+				return self::handle($routes[""]);
+			}
+		}
+		else
+		{
+			debugMsg("Testing routes");
+			foreach ($routes as $pattern => $action)
+			{
+				$vars = self::testPattern($pattern, $action, $unconsumed);
+
+				if ($vars != false && !is_array($action))
+				{
+					return self::handle($action, $vars);
+				}
+				elseif ($vars == "handled")
+				{
+					return "handled";
+				}
+			}
+
+			if (is_array($routes['']))
+			{
+				return self::route($routes[''], $unconsumed);
+			}
+
+			throw new \Exception("No matching route pattern");
+		}
+	}
+
+	/**
+	 * Tests a route pettern to see if it matches the URL.
+	 * Returns an array of vars on match. False if no match.
+	 */
+	public static function testPattern(string $pattern, $action, array $urlsegments)
+	{
+		debugMsg("Testing pattern: ".$pattern);
+		debugMsg("Action: ".$action);
+
+		// Regular expression to match variable segments. Subpattern 1 is the name of the variable.
+		$varregex = "~^\{(.*)\}$~";
+
+		// Array of variables.
+		$vars = array();
+
+		// Get an array of pattern segments. We will look at each segment individually.
+		$patternsegments = explode("/", $pattern);
+		debugMsg("Pattern segments: ".print_r($patternsegments, true));
+
+		// If action is an array and the length of the pattern and url arrays don't match, we can return right now.
+		if (!is_array($action) && count($patternsegments) != count($urlsegments))
+		{
+			debugMsg("Non-array action with non-matching pattern and url segment counts");
+			return false;
+		}
+
+		// For each pattern segment...
+		foreach ($patternsegments as $k => $ps)
+		{
+			$matches = null;
+
+			// Compare it to the analogous URL segment.
+			if ($ps == $urlsegments[$k])
+			{
+				// If it matches, we can move onto the next one.
+				continue;
+			} // Otherwise we'll see if it looks like a variable placeholder.
+			elseif (preg_match($varregex, $ps, $matches))
+			{
+				// It matches so we'll create a key with the variables name in the $vars array, and set its value to whatever is in the URL at this point.
+				$vars[$matches[1]] = $urlsegments[$k];
+			} // Nothing matches so we can give up and move on.
+			else
+			{
+				debugMsg("Non-matching pattern segment");
+				return false;
+			}
+		}
+
+		debugMsg("Pattern matches");
+
+		// We're done processing the pattern. At this point, there may still be unconsumed URL segments.
+		// If $action is an array we can pass it and the unconsumed URL segments to route() again.
+		// Otherwise there isn't a pattern matching this URL and we can return false.
+
+		if (is_array($action))
+		{
+			debugMsg("Checking for subroutes in array");
+			return self::route($action, array_slice($urlsegments, count($patternsegments)));
+		}
+		else if (count($patternsegments) == count($urlsegments))
+		{
+			return $vars;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Handles the actual routing to views.
+	 */
+	public static function handle(string $view, array $args = array())
+	{
+		debugMsg("Handling view: ".$view);
+		debugMsg("Args: ".print_r($args, true));
+
+		$vcomps = explode("\\", ltrim($view, "\\"));
+		$function = array_pop($vcomps);
+		$folder = implode("/", $vcomps);
+		Template::addTemplateDir(ROOT . "/apps/$folder/templates");
+		$view($args);
+		return "handled";
 	}
 	
 	public static function getUrl()

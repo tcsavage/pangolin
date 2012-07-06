@@ -3,6 +3,8 @@
 function routes()
 {
 	return array(
-		"" => "index"
+		"" => "\\uopcomputing\\boardView",
+		"post/{id}" => "\\uopcomputing\\postView",
+		"page/{slug}" => "\\uopcomputing\\staticPage"
 	);
 }
