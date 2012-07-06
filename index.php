@@ -49,7 +49,8 @@ require("routes.php");
 
 try
 {
-	$router = new \pangolin\Router((isset($_GET['url']) ? $_GET['url'] : "__default"), $routes);
+	\pangolin\Router::setup((isset($_GET['url']) ? $_GET['url'] : "__default"));
+	\pangolin\Router::route($routes);
 }
 catch (Exception $e)
 {
