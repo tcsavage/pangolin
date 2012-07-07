@@ -35,6 +35,11 @@ class User extends \pangolin\Model
 			"options" => array("user" => "Normal user", "admin" => "Administrator")), null);
 		parent::__construct();
 	}
+
+	public function __toString()
+	{
+		return $this->name;
+	}
 }
 
 class Post extends \pangolin\Model
@@ -68,6 +73,21 @@ class Post extends \pangolin\Model
 			"order" => 5), null);
 
 		parent::__construct();
+	}
+
+	public function __toString()
+	{
+		$str = $this->user.": ";
+		if (strlen($this->body) > 10)
+		{
+			$str .= substr($this->body, 0, 10)."...";
+		}
+		else
+		{
+			$str .= $this->body;
+		}
+
+		return $str;
 	}
 }
 
