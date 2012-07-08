@@ -71,8 +71,19 @@ switch ($argv[1])
 		$alert1->title = "Announcment Title";
 		$alert1->body = "Announcment Body";
 		$alert1->create();
-
 	break;
+
+	case "makeuser":
+		if (isset($argv[4]))
+		{
+			$user = new \admin\User();
+			$user->username = $argv[2];
+			$user->email = $argv[3];
+			$user->password = $argv[4];
+			$user->create();
+		}
+		break;
+		
 	case "dropall":
 		break;
 
