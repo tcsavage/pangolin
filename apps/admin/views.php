@@ -85,10 +85,6 @@ function viewModel($request, $vars)
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
 	$template->assign("attributes", print_r(\pangolin\AttributeReader::classAttributes($model), true));
 	$template->renderForceApp("viewModel");
-
-	echo("<h3>SQL queries run on this page:</h3><pre>");
-	print_r(\pangolin\Debug::getQueries());
-	echo("</pre>");
 }
 
 function modelInsert($request, $vars)
