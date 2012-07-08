@@ -16,7 +16,7 @@ foreach ($installedapps as $app)
 switch ($argv[1])
 {
 	case "makedb":
-		foreach (\admin\Site::getModels() as $model)
+		foreach (\pangolin\AppData::getModels() as $model)
 		{
 			echo("Building " . $model['fullpath'] . "\n");
 			$makequery = $model['fullpath']::buildSQLCreate();

@@ -2,7 +2,7 @@
 
 function templateSetup($template)
 {
-	$apps = getInstalledApps();
+	$apps = \pangolin\AppData::getInstalledApps();
 	$template->assign("apps", $apps);
 	$template->assign("root", "/admin");
 }
@@ -16,12 +16,12 @@ function index()
 
 function viewApp($vars)
 {
-	$models = Site::getAppModels($vars['app']);
+	$models = \pangolin\AppData::getAppModels($vars['app']);
 	$addCount = function($elem) { $elem['count'] = $elem['fullpath']::countAll(); return $elem; };
 	$models =  \pangolin\map($models, $addCount);
 	$template = new \pangolin\Template;
 	templateSetup($template);
-	$appManifest = getAppManifest($vars['app']);
+	$appManifest = \pangolin\AppData::getAppManifest($vars['app']);
 	$template->assign("app", $appManifest);
 	$template->assign("appname", $appManifest->name); // Needed for weird bug.
 	$template->assign("models", $models);
@@ -34,7 +34,7 @@ function viewModel($vars)
 	$data = $model::getAll();
 	$template = new \pangolin\Template;
 	templateSetup($template);
-	$appManifest = getAppManifest($vars['app']);
+	$appManifest = \pangolin\AppData::getAppManifest($vars['app']);
 	$template->assign("app", $appManifest);
 	$template->assign("appname", $appManifest->name);
 	$template->assign("data", $data);
@@ -56,7 +56,7 @@ function modelInsert($vars)
 	templateSetup($template);
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
 	$template->assign("columns", $fullmodelname::getColumnMetadata(true));
-	$appManifest = getAppManifest($vars['app']);
+	$appManifest = \pangolin\AppData::getAppManifest($vars['app']);
 	$template->assign("app", $appManifest);
 	$t = $fullmodelname::getColumnMetadata();
 	$template->assign("model", $vars['model']);
@@ -94,7 +94,7 @@ function modelEdit($vars)
 	//die(var_dump($data));
 	$template->assign("columns", $fullmodelname::getColumnMetadata(true));
 	$template->assign("data", $data);
-	$appManifest = getAppManifest($vars['app']);
+	$appManifest = \pangolin\AppData::getAppManifest($vars['app']);
 	$template->assign("app", $appManifest);
 	$t = $fullmodelname::getColumnMetadata();
 	$template->assign("model", $vars['model']);

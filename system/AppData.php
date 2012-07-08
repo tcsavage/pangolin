@@ -1,6 +1,6 @@
-<?php namespace admin;
+<?php namespace pangolin;
 
-class Site
+class AppData
 {
 	private static $registeredModels = array();
 
@@ -46,5 +46,27 @@ class Site
 			"class" => $class,
 			"path" => $path
 		);
+	}
+
+	public static function getInstalledApps()
+	{
+		global $installedapps;
+
+		$apps = array();
+
+		foreach ($installedapps as $app)
+		{
+			$manifest = self::getAppManifest($app);
+			$apps[] = $manifest;
+		}
+		return $apps;
+	}
+
+	public static function getAppManifest($app)
+	{
+		$manifest = json_decode(file_get_contents(ROOT . "/apps/$app/manifest.json"));
+		$manifest->namespace = $app;
+		$manifest->models = self::getAppModels($app);
+		return $manifest;
 	}
 }
