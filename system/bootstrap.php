@@ -3,6 +3,7 @@
 require_once("errorPage.php");
 require_once("helpers.php");
 require_once("Debug.php");
+require_once("HTTPRequest.php");
 require_once("AppData.php");
 require_once("Lambda.php");
 require_once("functional.php");

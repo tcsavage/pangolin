@@ -7,14 +7,14 @@ function templateSetup($template)
 	$template->assign("root", "/admin");
 }
 
-function index()
+function index($request)
 {
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$template->renderForceApp("base");
 }
 
-function viewApp($vars)
+function viewApp($request, $vars)
 {
 	$models = \pangolin\AppData::getAppModels($vars['app']);
 	$addCount = function($elem) { $elem['count'] = $elem['fullpath']::countAll(); return $elem; };
@@ -28,7 +28,7 @@ function viewApp($vars)
 	$template->renderForceApp("viewApp");
 }
 
-function viewModel($vars)
+function viewModel($request, $vars)
 {
 	$model = "\\$vars[app]\\$vars[model]";
 	$data = $model::getAll();
@@ -51,7 +51,7 @@ function viewModel($vars)
 	echo("</pre>");
 }
 
-function modelInsert($vars)
+function modelInsert($request, $vars)
 {
 	$template = new \pangolin\Template;
 	templateSetup($template);
@@ -65,7 +65,7 @@ function modelInsert($vars)
 	$template->renderForceApp("modelInsert");
 }
 
-function ajaxInsert($vars)
+function ajaxInsert($request, $vars)
 {
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
 	$data = json_decode($_POST['record']);
@@ -86,7 +86,7 @@ function ajaxInsert($vars)
 	}
 }
 
-function modelEdit($vars)
+function modelEdit($request, $vars)
 {
 	$template = new \pangolin\Template;
 	templateSetup($template);
@@ -103,7 +103,7 @@ function modelEdit($vars)
 	$template->renderForceApp("modelEdit");
 }
 
-function ajaxEdit($vars)
+function ajaxEdit($request, $vars)
 {
 	die("foo");
 	$fullmodelname = "\\$vars[app]\\$vars[model]";

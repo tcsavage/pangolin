@@ -1,12 +1,12 @@
 <?php namespace uopcomputing;
 
-function index()
+function index($request)
 {
 	$template = new \pangolin\Template;
 	$template->render("uopbase");
 }
 
-function boardView()
+function boardView($request)
 {
 	$template = new \pangolin\Template;
 	$data = Post::getAll();
@@ -16,7 +16,7 @@ function boardView()
 	$template->render("boardView");
 }
 
-function postView($vars)
+function postView($request, $vars)
 {
 	$template = new \pangolin\Template;
 	$data = Post::getId($vars['id']);
@@ -26,7 +26,7 @@ function postView($vars)
 	$template->render("postView");
 }
 
-function staticPage($vars)
+function staticPage($request, $vars)
 {
 	$template = new \pangolin\Template;
 	$data = Page::getWhere(array("slug" => "'".$vars['slug']."'"));

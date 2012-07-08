@@ -44,7 +44,8 @@ class AppData
 		self::$registeredModels[] = array(
 			"fullpath" => $classPath,
 			"class" => $class,
-			"path" => $path
+			"path" => $path,
+			"attributes" => AttributeReader::classAttributes($classPath)
 		);
 	}
 
