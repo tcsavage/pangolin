@@ -74,7 +74,7 @@ class Router
 			{
 				$vars = self::testPattern($pattern, $action, $unconsumed);
 
-				if ($vars != false && !is_array($action))
+				if ($vars !== false && !is_array($action))
 				{
 					return self::handle($action, $vars);
 				}
