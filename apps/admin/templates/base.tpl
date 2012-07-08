@@ -131,7 +131,7 @@
 		  <div class="hero-unit">
 			<h1>Greetings, human!</h1>
 			<p>This is Pangolin's administration area. Here you can perform operations on your models and configure applications.</p>
-			<p><a class="btn btn-primary btn-large">Read the documentation &raquo;</a></p>
+			<p><a class="btn btn-primary btn-large" href="https://github.com/tcsavage/pangolin/wiki">Read the documentation &raquo;</a></p>
 		  </div>
 		  <div class="row-fluid">
 			<div class="span4">
