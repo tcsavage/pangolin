@@ -9,6 +9,7 @@
 
 	<!-- Le styles -->
 	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="/static/core/css/debugbar.css">
 	<style type="text/css">
 	  body {
 		padding-top: 60px;
@@ -45,7 +46,16 @@
   </head>
 
   <body>
-
+  	<div id="debugbar">
+		<span class="main"><a href="#">Debugger</a></span>
+		<ul>
+			<li id="current"><a href="#">Link 1</a></li>
+			<li><a href="#">Link 2</a></li>
+			<li><a href="#">Link 3</a></li>
+			<li><a href="#">Link 4</a></li>
+			<div id="debugbar_right"><a href="#">Nerd Stats</a></div>
+		</ul>
+	</div>
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 		<div class="container-fluid">
@@ -69,8 +79,8 @@
 						{/foreach}
 					</ul>
 				</li>
-			  <li><a href="#help">Help</a></li>
-			  <li><a href="#help">Provide Feedback</a></li>
+			  <li><a href="https://github.com/tcsavage/pangolin/wiki">Help</a></li>
+			  <li><a href="https://github.com/tcsavage/pangolin/issues">Provide Feedback</a></li>
 			</ul>
 			<ul class="nav pull-right">
 				<li class="dropdown">
