@@ -175,7 +175,7 @@ class Router
 		$function = array_pop($vcomps);
 		$folder = implode("/", $vcomps);
 		Template::addTemplateDir(ROOT . "/apps/$folder/templates");
-		$view($args);
+		$view(new HTTPRequest(), $args);
 		return "handled";
 	}
 	
