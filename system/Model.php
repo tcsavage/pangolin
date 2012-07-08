@@ -90,6 +90,31 @@ abstract class Model
 		return null;
 	}
 
+	// Gets an stdclass object with only simple data.
+	public function getSimpleData()
+	{
+		$data = array();
+		foreach ($this->properties as $key => $value)
+		{
+			if (is_a($value, "\\pangolin\\ObjectList"))
+			{
+				$data[$key] = $value->getSimple();
+			}
+			elseif (is_a($value, "\\pangolin\\ForeignField"))
+			{
+				$val = $value->getValue();
+				//die(var_dump($val));
+				$data[$key] = $val;
+			}
+			else
+			{
+				$data[$key] = $value->getValue();
+			}
+		}
+
+		return (object)$data;
+	}
+
 	// Get field properties.
 	public static function getColumnMetadata($onlyvisible = false)
 	{

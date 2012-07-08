@@ -10,6 +10,11 @@ class ObjectList implements \arrayaccess, \Iterator
 		return "ObjectList (".count($this->objects).")";
 	}
 
+	public function getSimple()
+	{
+		return map($this->objects, $f = function($x) { return $x->getSimpleData(); });
+	}
+
 	public function size()
 	{
 		return count($this->objects);

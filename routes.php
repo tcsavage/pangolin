@@ -10,3 +10,4 @@ foreach ($installedapps as $app)
 $routes = array();
 $routes[""] = \uopcomputing\routes();
 $routes["admin"] = \admin\routes();
+$routes["api"] = \rest\routes();
