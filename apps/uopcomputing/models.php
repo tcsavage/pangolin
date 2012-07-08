@@ -3,6 +3,7 @@
 /**
  * Some stuff
  * [attrib1: testval]
+ * [attrib2: foobar]
  */
 class User extends \pangolin\Model
 {

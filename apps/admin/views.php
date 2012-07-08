@@ -43,6 +43,7 @@ function viewModel($vars)
 	$template->assign("hrcolumns", $model::getPrettyColumnNamesS());
 	$template->assign("model", $vars['model']);
 	$template->assign("modelname", $vars['model']); // Needed for weird bug.
+	$template->assign("attributes", print_r(\pangolin\AttributeReader::classAttributes($model), true));
 	$template->renderForceApp("viewModel");
 
 	echo("<h3>SQL queries run on this page:</h3><pre>");

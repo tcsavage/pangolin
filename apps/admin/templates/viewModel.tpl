@@ -40,4 +40,7 @@ $('#records').tooltip({
 	</tbody>
 </table>
 <p><a href="{$root}/{$app->namespace|lower}/{$model|lower}/insert"><i class="icon-file"></i> Insert Record</a></p>
+<hr/>
+<h2>Model Attributes</h2>
+<pre>{$attributes}</pre>
 {/block}
