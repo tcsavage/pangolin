@@ -5,17 +5,56 @@ function templateSetup($template)
 	$apps = \pangolin\AppData::getInstalledApps();
 	$template->assign("apps", $apps);
 	$template->assign("root", "/admin");
+	$template->assign("username", $_SESSION['username']);
+}
+
+function checkLogin()
+{
+	if (!isset($_SESSION['username']))
+	{
+		header("Location: /admin/login/required");
+	}
 }
 
 function index($request)
 {
+	checkLogin();
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$template->renderForceApp("base");
 }
 
+function login($request, $vars)
+{
+	$template = new \pangolin\Template;
+	$template->assign("status", $vars['status']);
+	$template->renderForceApp("login");
+}
+
+function dologin($request)
+{
+	$pv = $request->getVars();
+	$user = User::getWhere(array("username" => "'".$pv['username']."'"));
+	if ($user[0] && $user[0]->password == md5($pv['password']))
+	{
+		$_SESSION['username'] = $pv['username'];
+		header("Location: /admin");
+	}
+	else
+	{
+		header("Location: /admin/login/failed");
+	}
+}
+
+function logout($request)
+{
+	session_destroy();
+	header("Location: /admin/login/loggedout");
+}
+
 function viewApp($request, $vars)
 {
+	checkLogin();
 	$models = \pangolin\AppData::getAppModels($vars['app']);
 	$addCount = function($elem) { $elem['count'] = $elem['fullpath']::countAll(); return $elem; };
 	$models =  \pangolin\map($models, $addCount);
@@ -30,6 +69,7 @@ function viewApp($request, $vars)
 
 function viewModel($request, $vars)
 {
+	checkLogin();
 	$model = "\\$vars[app]\\$vars[model]";
 	$data = $model::getAll();
 	$template = new \pangolin\Template;
@@ -53,6 +93,7 @@ function viewModel($request, $vars)
 
 function modelInsert($request, $vars)
 {
+	checkLogin();
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
@@ -88,6 +129,7 @@ function ajaxInsert($request, $vars)
 
 function modelEdit($request, $vars)
 {
+	checkLogin();
 	$template = new \pangolin\Template;
 	templateSetup($template);
 	$fullmodelname = "\\$vars[app]\\$vars[model]";

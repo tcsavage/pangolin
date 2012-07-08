@@ -75,11 +75,11 @@
 			<ul class="nav pull-right">
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						username
+						{$username}
 						<b class="caret"></b>
 						</a>
 					<ul class="dropdown-menu">
-						<li><a href="{$root}/logout">Change Password</a></li>
+						<li><a href="#">Change Password</a></li>
 						<li><a href="{$root}/logout">Logout</a></li>
 					</ul>
 				</li>
