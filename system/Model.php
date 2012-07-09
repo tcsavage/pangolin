@@ -262,7 +262,6 @@ abstract class Model
 		$classname = get_called_class();
 		$query = new SQLQuery($db);
 		$query = $query->countAll()->from($tablename);
-		$query->run();
 		$results = $query->fetchAll();
 		return intval($results[0]['COUNT(*)']);
 	}
