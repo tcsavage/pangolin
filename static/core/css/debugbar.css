@@ -1,0 +1,100 @@
+/*
+debugbar.css
+
+Defines the structure of the debugger bar.
+*/
+
+#debugbar a:link, #debugbar a:visited {
+	color: #ccc;
+	text-decoration: none;
+}
+
+#debugbar span.main a:link, #debugbar span.main a:visited {
+	color: #fff;
+	font-weight: bold;
+}
+
+#debugbar a:hover, #debugbar a:active {
+	color: #ddd;
+	text-decoration: none;
+}
+
+#debugbar {
+	background: #1a1a1a;
+	height: 30px;
+	min-width: 700px;
+	/*font-family: "Helvetica Neue", helvetica, arial, sans-serif !important;*/
+	font-family: arial, sans-serif !important;
+	font-weight: normal !important;
+	text-shadow: none !important;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	z-index: 1000;
+}
+
+#debugbar ul li a {
+}
+
+#debugbar span.main, #debugbar ul li, #debugbar ul a {
+	float: left;
+	height: 30px;
+	color: #777;
+	font-size: 11px;
+	line-height: 30px;
+	text-decoration: none;
+	margin: 0;
+	padding: 0;
+}
+
+#debugbar #debugbar_right {
+	float: right;
+	height: 30px;
+	width: auto;
+	color: #777;
+	font-size: 11px;
+	line-height: 30px;
+	text-decoration: none;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+#debugbar span.main {
+	width: auto;
+	height: 30px;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-weight: bold;
+	color: #ccc;
+}
+#debugbar span.main a {
+    float: left;
+	width: auto;
+	height: 30px;
+}
+
+#debugbar ul, #debugbar li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#debugbar ul a {
+	margin-left: -1px;
+	padding: 0 10px 0 11px;
+}
+#debugbar ul a:hover {
+	color: #ddd;
+}
+#debugbar ul a:active {
+	background: #111;
+}
+#debugbar li:hover, #debugbar span.main:hover  #debugbar #debugbar_right:hover {
+	background: #222222;
+}
+#debugbar li {
+	border-top: 2px solid #002730;
+}
+#debugbar li.current {
+	border-top: 2px solid #0096bc;
+}
