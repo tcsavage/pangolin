@@ -27,6 +27,8 @@ class Template
 		$this->assign("pangolin", $pangolinVars);
 
 		self::$smarty->debugging = TRUE;
+		self::$smarty->debug_tpl = "system/debugger/template.tpl";
+		self::$smarty->registerPlugin("function", "getqueries", "smarty_function_getqueries");
 		//self::$smarty->force_compile = TRUE;
 	}
 
@@ -54,8 +56,7 @@ class Template
 			self::$smarty->assign($key, $value);
 		}
 
-		$html = self::$smarty->fetch("file:[app]".$name.".tpl");
-		echo($html);	
+		self::$smarty->display("file:[app]".$name.".tpl");
 	}
 
 	public static function addTemplateDir($string)

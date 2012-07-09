@@ -13,3 +13,9 @@ function smarty_modifier_shrink($string, $size)
 {
 	return (strlen($string) > $size) ? substr($string, 0, $size) . "..." : $string;
 }
+
+function smarty_function_getqueries($params, Smarty_Internal_Template $template)
+{
+	$name = (empty($params['var'])) ? "queries" : $params['var'];
+	$template->assign($name, \pangolin\Debug::getQueries());
+}
