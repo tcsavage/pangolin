@@ -46,16 +46,6 @@
   </head>
 
   <body>
-  	<div id="debugbar">
-		<span class="main"><a href="#">Debugger</a></span>
-		<ul>
-			<li id="current"><a href="#">Link 1</a></li>
-			<li><a href="#">Link 2</a></li>
-			<li><a href="#">Link 3</a></li>
-			<li><a href="#">Link 4</a></li>
-			<div id="debugbar_right"><a href="#">Nerd Stats</a></div>
-		</ul>
-	</div>
 	<div class="navbar navbar-fixed-top">
 	  <div class="navbar-inner">
 		<div class="container-fluid">
