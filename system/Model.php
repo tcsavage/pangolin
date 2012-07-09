@@ -202,7 +202,6 @@ abstract class Model
 		$classname = get_called_class();
 		$query = new SQLQuery($db);
 		$query = $query->selectAll()->from($tablename);
-		$query->run();
 		$results = $query->fetchAll();
 		
 		// Create new ObjectLIst for storing model objects.
@@ -275,7 +274,6 @@ abstract class Model
 		$query = new SQLQuery($db);
 		$query = $query->selectAll()->from($tablename);
 		$query->where($where);
-		$query->run();
 		$results = $query->fetchAll();
 		
 		$list = new ObjectList();
