@@ -12,7 +12,6 @@ $(document).ready(function() {
 		$("#edit").button('loading');
 	});
 	$('#editform').ajaxForm({
-		clearForm: true,
 		beforeSubmit: function() { $("#edit").button('loading'); },
 		success: function(data, status, jqxhr) {
 			$("#successalert").fadeIn();
