@@ -6,6 +6,8 @@ class HTTPRequest
 	private $requestVars = array();
 	private $data;
 	private $accept;
+	private $ajax;
+
  	public function __construct()
 	{
 		$this->requestMethod = strtolower($_SERVER['REQUEST_METHOD']);
@@ -23,10 +25,13 @@ class HTTPRequest
 				$this->requestVars = $putvars;
 				break;
 		}
+
  		if (isset($this->requestVars["data"]))
 		{
 			$this->data = json_decode($requestVars["data"]);
 		}
+
+		$this->ajax = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 	}
 	
 	public function getMethod()
@@ -52,5 +57,10 @@ class HTTPRequest
 	public function getHttpAccept()
 	{
 		return $this->accept;
+	}
+
+	public function isAjax()
+	{
+		return $this->ajax;
 	}
  }
