@@ -1,7 +1,7 @@
 <?php namespace uopcomputing;
 
 /**
- * Some stuff
+ * Describes a UoP user.
  * [attrib1: testval]
  * [attrib2: foobar]
  */
@@ -14,6 +14,7 @@ class User extends \pangolin\Model
 	public $flair;
 	public $banned;
 	public $roll;
+	public $profilePic;
 
 	public function __construct()
 	{
@@ -38,6 +39,10 @@ class User extends \pangolin\Model
 			"prettyname" => "User roll",
 			"order" => 6,
 			"options" => array("user" => "Normal user", "admin" => "Administrator")), null);
+		$this->profilePic = new \pangolin\FileField(array(
+			"prettyname" => "Profile picture",
+			"order" => 7,
+			"types" => \pangolin\FileField::$allImageTypes), null);
 		parent::__construct();
 	}
 
