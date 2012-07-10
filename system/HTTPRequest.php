@@ -44,6 +44,11 @@ class HTTPRequest
 		return $this->data;
 	}
 
+	public function getFiles()
+	{
+		return $_FILES;
+	}
+
 	public function getHttpAccept()
 	{
 		return $this->accept;
