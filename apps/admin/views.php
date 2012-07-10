@@ -123,6 +123,22 @@ function ajaxInsert($request, $vars)
 	}
 }
 
+function postInsert($request, $vars)
+{
+	$fullmodelname = "\\$vars[app]\\$vars[model]";
+	$data = array_merge($request->getVars(), $request->getFiles());
+	$new = new $fullmodelname();
+	foreach ($data as $name => $value)
+	{
+		$new->$name = $value;
+	}
+
+	$id = $new->create();
+
+	if ($request->isAjax()) echo($id);
+	else header("Location: /admin/$vars[app]/$vars[model]");
+}
+
 function modelEdit($request, $vars)
 {
 	checkLogin();

@@ -9,6 +9,7 @@ function routes()
 		"logout" => "\\admin\\logout",
 		"{app}/{model}/edit/{id}" => "\\admin\\modelEdit",
 		"{app}/{model}/insert" => "\\admin\\modelInsert",
+		"{app}/{model}/insert/do" => "\\admin\\postInsert",
 		"{app}/{model}/ajaxinsert" => "\\admin\\ajaxInsert",
 		"{app}/{model}" => "\\admin\\viewModel",
 		"{app}" => "\\admin\\viewApp",

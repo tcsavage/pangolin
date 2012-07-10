@@ -4,34 +4,26 @@
 
 {block name=final}
 {literal}
+<script src="/static/jquery/jquery.form.js"></script>
 <script type="text/javascript">
-$('.insertform').button();
-$("#insert").click(function(event) {
-	$("#insert").button('loading');
-	event.preventDefault();
-	var newRecord = new Object();
-	{/literal}
-	{foreach $columns as $column => $md}
-	newRecord.{$md->name} = $("#{$md->name}").val();
-	{/foreach}
-	{literal}
-	$.ajax({
-		url: {/literal}"{$root}/{$app->namespace|lower}/{$model|lower}/ajaxinsert"{literal},
-		timeout: 2000,
-		type: "POST",
-		data: "record="+(JSON.stringify(newRecord)),
+$(document).ready(function() {
+	$('#insert').button();
+	$("#insert").click(function(event) {
+		$("#insert").button('loading');
+	});
+	$('#insertform').ajaxForm({
+		target: "#newrecordid",
+		clearForm: true,
+		beforeSubmit: function() { $("#insert").button('loading'); },
 		success: function(data, status, jqxhr) {
-			$("#newrecordid").text(data);
 			$("#successalert").fadeIn();
 			$("#insert").button('reset');
-			$('#insertform')[0].reset();
 		},
 		error: function(jqxhr, status, error) {
 			$("#errormsg").text(error);
 			$("#erroralert").fadeIn();
 			$("#insert").button('reset');
-		}
-	});
+		}});
 });
 </script>
 {/literal}
@@ -58,7 +50,7 @@ $("#insert").click(function(event) {
 </div>
 <div class="row-fluid">
 	<div class="span8">
-		<form class="form-horizontal" method="post" action"#" id="insertform">
+		<form class="form-horizontal" method="post" action="insert/do" id="insertform" enctype="multipart/form-data">
 			<fieldset>
 				<legend>New {$modelname}</legend>
 				{foreach $columns as $column => $md}
