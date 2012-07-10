@@ -1,6 +1,6 @@
 {extends file="uopbase.tpl"}
 
-{block name="title"}{$post->user->name} - {$post->content|shrink:15}{/block}
+{block name="title"}{$post->user->name} - {$post->body|shrink:15}{/block}
 
 {block name="main"}<article class="span8">
 						<div class="username">
@@ -22,7 +22,7 @@
 							{foreach $post->comments as $comment}
 							<div class="comment">
 								<div class="number">{$comment->id}</div>
-								<img src="/upload/{$comment->user->profilePic}" class="profilepic">
+								<img src="/upload/{$comment->user->profilePic}" style="width:50px;height:50px" class="profilepic">
 								<h3>{$comment->user->name}</h3>
 								<div class="content">
 									<p>{$comment->body}</p>
@@ -41,7 +41,7 @@
 
 {block name="sidebar"}
 					<aside class="span4">
-						<img src="/upload/{$post->user->profilePic}">
+						<img src="/upload/{$post->user->profilePic}" style="width:100px;height:100px">
 						<p>
 							Posted by {$post->user->name}
 						</p>
