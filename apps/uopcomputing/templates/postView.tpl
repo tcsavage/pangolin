@@ -6,7 +6,7 @@
 						<div class="username">
 							<h1><a href="#">{$post->user->name}</a></h1>
 							<div class="userbox">
-								<img src="tempimg/y.jpg" class="profilepic-large">
+								<img src="/upload/{$post->user->profilePic}" class="profilepic-large">
 								<div class="userbox-detail">
 									<h3>{$post->user->name}</h3>
 									<span class="label">{$post->user->flair}</span>
@@ -22,7 +22,7 @@
 							{foreach $post->comments as $comment}
 							<div class="comment">
 								<div class="number">{$comment->id}</div>
-								<img src="tempimg/x.jpg" class="profilepic">
+								<img src="/upload/{$comment->user->profilePic}" class="profilepic">
 								<h3>{$comment->user->name}</h3>
 								<div class="content">
 									<p>{$comment->body}</p>
@@ -41,7 +41,7 @@
 
 {block name="sidebar"}
 					<aside class="span4">
-						<img src="tempimg/x.jpg">
+						<img src="/upload/{$post->user->profilePic}">
 						<p>
 							Posted by {$post->user->name}
 						</p>

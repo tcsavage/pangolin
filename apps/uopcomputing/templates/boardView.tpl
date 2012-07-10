@@ -14,11 +14,11 @@
 							{foreach $data as $post}
 							{if $post->user->banned != 1 || $post->approved}
 							<div class="post">
-								<img src="tempimg/y.jpg" class="profilepic">
+								<img src="/upload/{$post->user->profilePic}" class="profilepic">
 								<div class="username">
 									<h3><a href="#">{$post->user->name}</a></h3>
 									<div class="userbox">
-										<img src="tempimg/y.jpg" class="profilepic-large">
+										<img src="/upload/{$post->user->profilePic}" class="profilepic-large">
 										<div class="userbox-detail">
 											<h3>{$post->user->name}</h3>
 											<span class="label">{$post->user->flair}</span>
