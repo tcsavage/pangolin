@@ -105,6 +105,14 @@ class SQLQuery
 		$this->columns = array_merge($this->columns, $values);
 		return $this;
 	}
+
+	public function update($table)
+	{
+		$this->type = "UPDATE";
+		$this->table = $table;
+
+		return $this;
+	}
 	
 	public function build()
 	{
@@ -131,6 +139,19 @@ class SQLQuery
 				$fields = implode(", ", array_keys($this->columns));
 				$values = implode(", ", map(array_values($this->columns), $f = function($x) { return "'".$x."'"; }));
 				$query .= "INSERT INTO $this->table ($fields) VALUES ($values)";
+				break;
+			case "UPDATE":
+				$kvp = array();
+				foreach ($this->columns as $key => $value)
+				{
+					$kvp[] = "$key='$value'";
+				}
+				$kvp = implode(", ", $kvp);
+				$query = "UPDATE $this->table SET $kvp";
+				if ($this->where)
+				{
+					$query .= " WHERE " . implode(" AND ", $this->where);
+				}
 				break;
 			default:
 				throw new \Exception("Invalid query type ($this->type).");

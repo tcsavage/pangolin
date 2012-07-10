@@ -175,6 +175,21 @@ abstract class Model
 		return $query->insertId();
 	}
 
+	public function update()
+	{
+		global $db;
+		$tablename = self::tablename();
+		$query = new SQLQuery($db);
+		$query = $query->update($tablename);
+		foreach ($this->properties as $key => $value)
+		{
+			if ($key != "id" && is_subclass_of($value, "\\pangolin\\Field"))
+				$query->value($key, $value->processForDB($value->getValue()));
+		}
+		$query->where("id", $this->id);
+		$query->run();
+	}
+
 	// Build a SQL statement for creating the model's table.
 	public static function buildSQLCreate()
 	{
