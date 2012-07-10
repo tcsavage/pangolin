@@ -102,27 +102,6 @@ function modelInsert($request, $vars)
 	$template->renderForceApp("modelInsert");
 }
 
-function ajaxInsert($request, $vars)
-{
-	$fullmodelname = "\\$vars[app]\\$vars[model]";
-	$data = json_decode($_POST['record']);
-	$new = new $fullmodelname();
-	foreach ($data as $name => $value)
-	{
-		$new->$name = $value;
-	}
-
-	try
-	{
-		echo($new->create());
-	}
-	catch (\Exception $e)
-	{
-		\pangolin\set_http_response_code(500);
-		die($e->getMessage());
-	}
-}
-
 function postInsert($request, $vars)
 {
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
@@ -133,10 +112,25 @@ function postInsert($request, $vars)
 		$new->$name = $value;
 	}
 
-	$id = $new->create();
-
-	if ($request->isAjax()) echo($id);
-	else header("Location: /admin/$vars[app]/$vars[model]");
+	if ($request->isAjax())
+	{
+		// If it's ajax, we should catch any enxeptions and return the error message back to the sender.
+		try
+		{
+			echo($new->create());
+		}
+		catch (\Exception $e)
+		{
+			\pangolin\set_http_response_code(500);
+			die($e->getMessage());
+		}
+	}
+	else
+	{
+		// If it's not ajax it's ok to let the normal error handler take care of it.
+		$new->create();
+		header("Location: /admin/$vars[app]/$vars[model]");
+	}
 }
 
 function modelEdit($request, $vars)
@@ -157,24 +151,33 @@ function modelEdit($request, $vars)
 	$template->renderForceApp("modelEdit");
 }
 
-function ajaxEdit($request, $vars)
+function postEdit($request, $vars)
 {
-	die("foo");
 	$fullmodelname = "\\$vars[app]\\$vars[model]";
-	$data = json_decode($_POST['record']);
-	$new = new $fullmodelname();
+	$data = array_merge($request->getVars(), $request->getFiles());
+	$record = $fullmodelname::getId($data['id']);
 	foreach ($data as $name => $value)
 	{
-		$new->$name = $value;
+		$record->$name = $value;
 	}
 
-	try
+	if ($request->isAjax())
 	{
-		echo($new->create());
+		// If it's ajax, we should catch any enxeptions and return the error message back to the sender.
+		try
+		{
+			$record->update();
+		}
+		catch (\Exception $e)
+		{
+			\pangolin\set_http_response_code(500);
+			die($e->getMessage());
+		}
 	}
-	catch (\Exception $e)
+	else
 	{
-		\pangolin\set_http_response_code(500);
-		die($e->getMessage());
+		// If it's not ajax it's ok to let the normal error handler take care of it.
+		$record->update();
+		header("Location: /admin/$vars[app]/$vars[model]");
 	}
 }

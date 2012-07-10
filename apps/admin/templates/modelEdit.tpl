@@ -4,34 +4,25 @@
 
 {block name=final}
 {literal}
+<script src="/static/jquery/jquery.form.js"></script>
 <script type="text/javascript">
-$('.insertform').button();
-$("#insert").click(function(event) {
-	$("#insert").button('loading');
-	event.preventDefault();
-	var newRecord = new Object();
-	{/literal}
-	{foreach $columns as $column => $md}
-	newRecord.{$md->name} = $("#{$md->name}").val();
-	{/foreach}
-	{literal}
-	$.ajax({
-		url: {/literal}"{$root}/{$app->namespace|lower}/{$model|lower}/ajaxinsert"{literal},
-		timeout: 2000,
-		type: "POST",
-		data: "record="+(JSON.stringify(newRecord)),
+$(document).ready(function() {
+	$('#edit').button();
+	$("#edit").click(function(event) {
+		$("#edit").button('loading');
+	});
+	$('#editform').ajaxForm({
+		clearForm: true,
+		beforeSubmit: function() { $("#edit").button('loading'); },
 		success: function(data, status, jqxhr) {
-			$("#newrecordid").text(data);
 			$("#successalert").fadeIn();
-			$("#insert").button('reset');
-			$('#insertform')[0].reset();
+			$("#edit").button('reset');
 		},
 		error: function(jqxhr, status, error) {
 			$("#errormsg").text(error);
 			$("#erroralert").fadeIn();
-			$("#insert").button('reset');
-		}
-	});
+			$("#edit").button('reset');
+		}});
 });
 </script>
 {/literal}
@@ -43,13 +34,13 @@ $("#insert").click(function(event) {
 <div class="alert alert-block alert-info fade in">
 	<a class="close" data-dismiss="alert">&times;</a>
 	<h4 class="alert-heading">Editing Model Data</h4>
-	<p>Here you can create a new record and save it into your data model. Each new record will be given a unique ID and will be displayed below when created.</p>
+	<p>On this page you can edit a record's data and save it back into the database.</p>
 	<p><a href="https://github.com/tcsavage/pangolin/wiki/Introduction-to-the-framework/" class="btn btn-info"><i class="icon-book icon-white"></i> Learn more</a></p>
 </div>
 <div class="alert alert-block alert-success fade in" id="successalert" style="display:none">
 	<a class="close" data-dismiss="alert">&times;</a>
 	<h4 class="alert-heading">Successfully Edited Record</h4>
-	<p>Created new record in {$modelname}. ID: <span id="newrecordid"></span>.</p>
+	<p><a href="{$root}/{$app->namespace}/{$model}" class="btn"><i class="icon-list-alt"></i> Go back</a></p>
 </div>
 <div class="alert alert-block alert-error fade in" id="erroralert" style="display:none">
 	<a class="close" data-dismiss="alert">&times;</a>
@@ -58,8 +49,8 @@ $("#insert").click(function(event) {
 </div>
 <div class="row-fluid">
 	<div class="span8">
-		<form class="form-horizontal" method="post" action"#" id="editform">
-			<input type="hidden" value="{$data->id}" />
+		<form class="form-horizontal" method="post" action="{$root}/{$app->namespace}/{$model}/edit/do" id="editform">
+			<input type="hidden" name="id" value="{$data->id}" />
 			<fieldset>
 				<legend>Edit {$modelname}</legend>
 				{foreach $data->getProperties() as $column => $md}
@@ -74,7 +65,7 @@ $("#insert").click(function(event) {
 				{/if}
 				{/foreach}
 				<div class="form-actions">
-					<button type="submit" class="btn btn-primary" id="insert" data-loading-text="inserting">Insert</button>
+					<button type="submit" class="btn btn-primary" id="edit" data-loading-text="editing">Edit</button>
 					<a href="{$root}/{$app->namespace}/{$model}" class="btn">Cancel</a>
 				</div>
 			</fieldset>
