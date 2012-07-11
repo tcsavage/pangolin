@@ -10,15 +10,9 @@
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/webshims/js/minified/polyfiller.js"></script>
     <script>
-		//implement all unsupported features || call polyfill before DOM-Ready to implement everything as soon and as fast as possible
 		$.webshims.polyfill();
-		//or load only specific features you need
-		//$.webshims.polyfill('forms json-storage');
-		
-		$(function(){
-		//use all implemented API-features on DOM-ready
-		});
 	</script>
+	{block name="extraheaders"}{/block}
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -30,22 +24,28 @@
 					<span class="icon-bar"></span>
 				</a>
 				<a class="brand" href="#">UoP Computing</a>
+				{if $loggedIn}
 				<div class="btn-group pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i> tcsavage
+						<i class="icon-user"></i> {$loggedIn->email}
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="#">Profile</a></li>
+						{if $loggedIn->isAdmin()}
+						<li><a href="/admin">Admin Panel</a></li>
+						{/if}
 						<li class="divider"></li>
 						<li><a href="#">Sign Out</a></li>
 					</ul>
 				</div>
+				{else}
 				<div class="btn-group pull-right">
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					<a class="btn dropdown-toggle" data-toggle="dropdown" href="/login">
 						<i class="icon-user"></i> Login / Register
 					</a>
 				</div>
+				{/if}
 				<div class="nav-collapse">
 					<ul class="nav">
 						<li class="active"><a href="#">Home</a></li>
@@ -87,7 +87,7 @@
 						</form>
 					</aside>{/block}
 				</div>
-				<hr>
+				<!-- <hr> -->
 				<!-- <div class="row">
 					<article class="span8">
 						<h1><span>CORGMA &raquo;</span> Alex Bright</h1>
@@ -141,7 +141,7 @@
 
 	<footer>
 		<div class="container">
-			<p>Built by <a href="#"><span class="xteam-tiny">XTeamSquishy</span></a>. Some rights reserved.</p>
+			<p>Lovingly crafted by <a href="#"><span class="xteam-tiny">XTeamSquishy</span></a>. Some rights reserved.</p>
 			<p><a href="#">Copyright notice</a> | <a href="#">Privacy policy</a> | <a href="#">About the project</a> | <a href="#">Contribute</a></p>
 		</div>
 	</footer>
