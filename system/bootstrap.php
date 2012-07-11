@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 require_once("errorPage.php");
 require_once("helpers.php");
 require_once("Debug.php");
