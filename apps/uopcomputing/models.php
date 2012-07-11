@@ -50,6 +50,11 @@ class User extends \pangolin\Model
 	{
 		return $this->name;
 	}
+
+	public function isAdmin()
+	{
+		return \admin\User::getWhere(array("email" => "'".$this->email."'"))->size() > 0;
+	}
 }
 
 class Post extends \pangolin\Model
