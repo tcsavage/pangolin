@@ -54,7 +54,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</a>
-				<a class="brand" href="#">UoP Computing</a>
+				<a class="brand" href="/">UoP Computing</a>
 				{if $loggedIn}
 				<div class="btn-group pull-right">
 					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -67,7 +67,7 @@
 						<li><a href="/admin">Admin Panel</a></li>
 						{/if}
 						<li class="divider"></li>
-						<li><a href="#">Sign Out</a></li>
+						<li><a href="/logout">Sign Out</a></li>
 					</ul>
 				</div>
 				{else}
@@ -79,9 +79,7 @@
 				{/if}
 				<div class="nav-collapse">
 					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
+						<li><a href="/submit">Submit</a></li>
 					</ul>
 				</div>
 				<form class="nav-collapse navbar-search pull-left">
@@ -170,8 +168,8 @@
 
 	<footer>
 		<div class="container">
-			<p>Lovingly crafted by <a href="#"><span class="xteam-tiny">XTeamSquishy</span></a>. Some rights reserved.</p>
-			<p><a href="#">Copyright notice</a> | <a href="#">Privacy policy</a> | <a href="#">About the project</a> | <a href="#">Contribute</a></p>
+			<p>Lovingly crafted by <a href="/about"><span class="xteam-tiny">XTeamSquishy</span></a>. Some rights reserved.</p>
+			<p><a href="/copyright">Copyright notice</a> | <a href="/privacy">Privacy policy</a> | <a href="/about">About the project</a> | <a href="/contribute">Contribute</a></p>
 		</div>
 	</footer>
 </body>
