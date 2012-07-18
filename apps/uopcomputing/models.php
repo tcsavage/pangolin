@@ -136,8 +136,7 @@ class Comment extends \pangolin\Model
 			"model" => get_class(new Post())), null);
 		$this->karma = new \pangolin\NumericalField(array(
 			"order" => 6,
-			"prettyname" => "Karma", 
-			"min" => 0), 0);
+			"prettyname" => "Karma"), 0);
 
 		parent::__construct();
 	}
