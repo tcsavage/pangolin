@@ -137,7 +137,12 @@ class SQLQuery
 				break;
 			case "INSERT INTO":
 				$fields = implode(", ", array_keys($this->columns));
-				$values = implode(", ", map(array_values($this->columns), $f = function($x) { return "'".$x."'"; }));
+				$valuearray = array();
+				foreach ($this->columns as $value)
+				{
+					$valuearray[] = "'".$value."'";
+				}
+				$values = implode(", ", $valuearray);
 				$query .= "INSERT INTO $this->table ($fields) VALUES ($values)";
 				break;
 			case "UPDATE":
