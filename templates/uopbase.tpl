@@ -9,8 +9,39 @@
 	<script src="/static/jquery/jquery-1.7.2.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
     <script src="/static/webshims/js/minified/polyfiller.js"></script>
+    <script src="http://js.pusher.com/1.12/pusher.min.js"></script>
     <script>
 		$.webshims.polyfill();
+
+		// Enable pusher logging - don't include this in production
+		Pusher.log = function(message) {
+			if (window.console && window.console.log) window.console.log(message);
+		};
+
+		// Flash fallback logging - don't include this in production
+		WEB_SOCKET_DEBUG = true;
+
+		var pusher = new Pusher('{$pusherkey}');
+		var channel = pusher.subscribe('uop');
+		channel.bind('activity', function(data) {
+			if ($("#activity").children().length > 3) {
+				$("#activity p:last").fadeOut().remove();
+			}
+			
+			txt = '<p>';
+			if (data.link) {
+				txt = txt +'<a href="'+ data.link +'">';
+			}
+			txt = txt +'<strong>'+ data.name +' '+ data.verb;
+			if (data.message) {
+				txt = txt +' -</strong> '+ data.message;
+			}
+			if (data.link) {
+				txt = txt +'</a>';
+			}
+			txt = txt +'</p>';
+			$(txt).hide().prependTo("#activity").fadeIn();
+		});
 	</script>
 	{block name="extraheaders"}{/block}
 </head>
@@ -61,9 +92,7 @@
 	</div>
 
 	<header class="intro">
-		<div class="container">
-			<p><a href="#"><strong>Tom Savage posted -</strong> In case anyone got feedback when they submitted their...</a></p>
-			<p><a href="#"><strong>Tom Savage commented -</strong> Probably a lmgtfy link.</a></p>
+		<div class="container" id="activity">
 		</div>
 	</header>
 

@@ -1,5 +1,8 @@
 <?php namespace uopcomputing;
 
+require_once("Pusher.php");
+require_once("pusherconfig.php");
+
 function loggedIn()
 {
 	return isset($_SESSION['email']);
@@ -30,6 +33,26 @@ function dologin($request)
 {
 	$pv = $request->getVars();
 	$user = User::getWhere(array("email" => "'".$pv['email']."'"));
+	if ($user[0] && $user[0]->password == md5($pv['password']))
+	{
+		$message = array("name" => $user[0]->name, "verb" => "logged in");
+		global $pusherconfig;
+		$pusher = new \Pusher($pusherconfig['key'], $pusherconfig['secret'], $pusherconfig['appid']);
+		$pusher->trigger('uop', 'activity', $message);
+
+		$_SESSION['email'] = $pv['email'];
+		header("Location: /");
+	}
+	else
+	{
+		header("Location: /login/failed");
+	}
+}
+
+function doregister($request)
+{
+	$pv = $request->getVars();
+	$user = new User;
 	if ($user[0] && $user[0]->password == md5($pv['password']))
 	{
 		$_SESSION['email'] = $pv['email'];
