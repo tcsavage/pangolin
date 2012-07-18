@@ -175,6 +175,7 @@ class Router
 		$function = array_pop($vcomps);
 		$folder = implode("/", $vcomps);
 		Template::addTemplateDir(ROOT . "/apps/$folder/templates");
+		\session_set_cookie_params(3600*24*7);
 		\session_name($folder);
 		\session_start();
 		$view(new HTTPRequest(), $args);
