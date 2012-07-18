@@ -14,6 +14,16 @@ function getLoggedInUser()
 	return $user[0];
 }
 
+function pushMessage($name, $verb, $message = null, $link = null)
+{
+	$data = array("name" => $name, "verb" => $verb);
+	if ($message) $data['message'] = $message;
+	if ($link) $data['link'] = $link;
+	global $pusherconfig;
+	$pusher = new \Pusher($pusherconfig['key'], $pusherconfig['secret'], $pusherconfig['appid']);
+	$pusher->trigger('uop', 'activity', $data);
+}
+
 function index($request)
 {
 	$template = new \pangolin\Template;
@@ -35,10 +45,7 @@ function dologin($request)
 	$user = User::getWhere(array("email" => "'".$pv['email']."'"));
 	if ($user[0] && $user[0]->password == md5($pv['password']))
 	{
-		$message = array("name" => $user[0]->name, "verb" => "logged in");
-		global $pusherconfig;
-		$pusher = new \Pusher($pusherconfig['key'], $pusherconfig['secret'], $pusherconfig['appid']);
-		$pusher->trigger('uop', 'activity', $message);
+		pushMessage($user[0]->name, "logged in");
 
 		$_SESSION['email'] = $pv['email'];
 		$_SESSION['id'] = $user[0]->id;
@@ -95,9 +102,12 @@ function postView($request, $vars)
 
 function doComment($request, $vars)
 {
+	// We only want logged in users to comment (duh).
 	if (loggedIn())
 	{
 		$post = $request->getVars();
+
+		// Build the new comment object.
 		$new = new Comment();
 		$new->post = $vars['id'];
 		$new->user = $_SESSION['id'];
@@ -105,6 +115,10 @@ function doComment($request, $vars)
 		$new->karma = "1";
 		$new->promoted = false;
 
+		// Get user details for later.
+		$user = getLoggedInUser();
+
+		// We want to handle this differently if it's an ajax request.
 		if ($request->isAjax())
 		{
 			// If it's ajax, we should catch any enxeptions and return the error message back to the sender.
@@ -117,12 +131,17 @@ function doComment($request, $vars)
 				\pangolin\set_http_response_code(500);
 				die($e->getMessage());
 			}
+
+			// Push an activity message out to connected clients.
+			pushMessage($user->name, "commented", $post['body'], "/post/$vars[id]#comments");
 		}
 		else
 		{
-			// If it's not ajax it's ok to let the normal error handler take care of it.
+			// If it's not ajax, just create the object, push a message out and return.
+			// If it errors, the default error handler will chatch it. It won't be pretty but most users will go that ajax route anyways.
 			$new->create();
-			header("Location: /admin/$vars[app]/$vars[model]");
+			pushMessage($user->name, "commented", $post['body'], "/post/$vars[id]#comments");
+			header("Location: /post/$vars[id]#comments");
 		}
 	}
 }
