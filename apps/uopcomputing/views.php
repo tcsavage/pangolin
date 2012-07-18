@@ -41,12 +41,19 @@ function dologin($request)
 		$pusher->trigger('uop', 'activity', $message);
 
 		$_SESSION['email'] = $pv['email'];
+		$_SESSION['id'] = $user[0]->id;
 		header("Location: /");
 	}
 	else
 	{
 		header("Location: /login/failed");
 	}
+}
+
+function dologout($request)
+{
+	session_destroy();
+	header("Location: /");
 }
 
 function doregister($request)
@@ -84,6 +91,40 @@ function postView($request, $vars)
 	$template->assign("minipost", substr($data->body, 0, 15));
 	$template->assign("loggedIn", (loggedIn()) ? getLoggedInUser() : false);
 	$template->render("postView");
+}
+
+function doComment($request, $vars)
+{
+	if (loggedIn())
+	{
+		$post = $request->getVars();
+		$new = new Comment();
+		$new->post = $vars['id'];
+		$new->user = $_SESSION['id'];
+		$new->body = $post['body'];
+		$new->karma = "1";
+		$new->promoted = false;
+
+		if ($request->isAjax())
+		{
+			// If it's ajax, we should catch any enxeptions and return the error message back to the sender.
+			try
+			{
+				echo($new->create());
+			}
+			catch (\Exception $e)
+			{
+				\pangolin\set_http_response_code(500);
+				die($e->getMessage());
+			}
+		}
+		else
+		{
+			// If it's not ajax it's ok to let the normal error handler take care of it.
+			$new->create();
+			header("Location: /admin/$vars[app]/$vars[model]");
+		}
+	}
 }
 
 function staticPage($request, $vars)
