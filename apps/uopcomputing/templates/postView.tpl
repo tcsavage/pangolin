@@ -17,7 +17,6 @@ $(document).ready(function() {
 			txt = '<div class="comment"><div class="number">1</div><img src="/upload/{/literal}{$loggedIn->profilePic}{literal}" style="width:50px;height:50px" class="profilepic"><h3>{/literal}{$loggedIn->name}{literal}</h3>';
 			txt = txt + '<div class="content"><p>';
 			body = $('#commentbody').val();
-			alert(body);
 			txt = txt + body;
 			txt = txt + '</p><small>Posted: now</small></div></div>';
 			$(txt).hide().appendTo('#comments').fadeIn();
