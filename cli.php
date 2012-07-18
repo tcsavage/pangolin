@@ -83,6 +83,47 @@ switch ($argv[1])
 			$user->create();
 		}
 		break;
+
+	case "facebook":
+		$accesstoken = "";
+		$jsonurl = "https://graph.facebook.com/154342131271237/members";
+		$jsontext = \file_get_contents($jsonurl."?access_token=".$accesstoken,0,null,null);
+		$json = \json_decode($jsontext);
+		echo("Creating " . count($json->data) . " users...\n");
+		foreach ($json->data as $i => $user)
+		{
+			echo("User " . $i . ": .");
+			$userjsonurl = "https://graph.facebook.com/".$user->id;
+			echo(".");
+			$userjsontext = \file_get_contents($userjsonurl."?access_token=".$accesstoken,0,null,null);
+			echo(".");
+			$userjson = \json_decode($userjsontext);
+			echo(".");
+
+			//$picurl = \file_get_contents($userjsonurl."/picture?access_token=".$accesstoken,0,null,null);
+			echo(".");
+
+			$ob = new \uopcomputing\User();
+			echo(".");
+			$ob->name = mysql_real_escape_string($user->name);
+			echo(".");
+			$ob->email = $userjson->username."@facebook.com";
+			echo(".");
+			$ob->password = "lol";
+			echo(".");
+			$ob->flair = "Test User";
+			echo(".");
+			$ob->banned = 0;
+			echo(".");
+			$ob->roll = "user";
+			echo(".");
+			//$ob->profilePic = $picurl;
+			echo(".");
+			$ob->create();
+			echo(". Done!\n");
+		}
+		echo("\nFinshed!\n");
+		break;
 		
 	case "dropall":
 		break;
