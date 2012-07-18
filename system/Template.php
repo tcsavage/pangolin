@@ -36,6 +36,12 @@ class Template
 	{
 		$this->vars[$key] = $var;
 	}
+
+	public static function assignGlobal($key, $var)
+	{
+		if (self::$smarty == null) self::$smarty = new \Smarty();
+		self::$smarty->assign($key, $var);
+	}
 	
 	public function render($name)
 	{
