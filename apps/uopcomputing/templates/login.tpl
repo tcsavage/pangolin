@@ -40,35 +40,35 @@
 						<div class="control-group">
 							<label class="control-label" for="uopusername">University username</label>
 							<div class="controls">
-								<input type="text" name="uopusername" required placeholder="cam12345"/>
+								<input type="text" name="uopusername" required placeholder="cam12345" autocomplete="off"/>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="uoppassword">University password</label>
 							<div class="controls">
-								<input type="password" name="uoppassword" required placeholder="********"/>
+								<input type="password" name="uoppassword" required placeholder="********" autocomplete="off"/>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="email">Email address</label>
 							<div class="controls">
-								<input type="email" name="email" required placeholder="jsmith@example.com"/>
+								<input type="email" name="email" required placeholder="jsmith@example.com" autocomplete="off"/>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="password">Password</label>
 							<div class="controls">
-								<input type="password" name="password" required placeholder="********"/>
+								<input type="password" name="password" required placeholder="********" autocomplete="off"/>
 							</div>
 						</div>
 
 						<div class="control-group">
 							<label class="control-label" for="password2">And again</label>
 							<div class="controls">
-								<input type="password" name="password2" required placeholder="********"/>
+								<input type="password" name="password2" required placeholder="********" autocomplete="off"/>
 							</div>
 						</div>
 						<div class="form-actions">
