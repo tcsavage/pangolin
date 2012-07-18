@@ -2,3 +2,5 @@ templates_c
 php
 doc/*
 upload/*
+config.php
+apps/uopcomputing/pusherconfig.php
