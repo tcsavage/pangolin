@@ -1,5 +1,6 @@
 <?php namespace uopcomputing;
 
+require_once("PCABuffer.php");
 require_once("Pusher.php");
 require_once("pusherconfig.php");
 
@@ -22,6 +23,7 @@ function pushMessage($name, $verb, $message = null, $link = null)
 	global $pusherconfig;
 	$pusher = new \Pusher($pusherconfig['key'], $pusherconfig['secret'], $pusherconfig['appid']);
 	$pusher->trigger('uop', 'activity', $data);
+	PCABuffer::push($data);
 }
 
 function index($request)

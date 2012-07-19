@@ -32,9 +32,9 @@
 			if (data.link) {
 				txt = txt +'<a href="'+ data.link +'">';
 			}
-			txt = txt +'<strong>'+ data.name +' '+ data.verb;
+			txt = txt +'<strong>'+ data.name +' '+ data.verb +'</strong>';
 			if (data.message) {
-				txt = txt +' -</strong> '+ data.message;
+				txt = txt +' - '+ data.message;
 			}
 			if (data.link) {
 				txt = txt +'</a>';
@@ -91,6 +91,13 @@
 
 	<header class="intro">
 		<div class="container" id="activity">
+			{foreach $activityhistory as $activity}
+			<p>
+				{if $activity.link}<a href="#">{/if}
+				<strong>{$activity.name} {$activity.verb}</strong>{if $activity.message} - {$message}{/if}
+				{if $activity.link}</a>{/if}
+			</p>
+			{/foreach}
 		</div>
 	</header>
 
