@@ -57,7 +57,7 @@
 		  <a class="brand" href="{$root}">{$pangolin.projectname} Admin Panel</a>
 		  <div class="nav-collapse">
 			<ul class="nav">
-			  <li><a href="#">Admin Home</a></li>
+			  <li><a href="/">Site Root</a></li>
 			  <li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						Installed Apps
