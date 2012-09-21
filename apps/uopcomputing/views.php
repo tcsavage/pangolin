@@ -33,6 +33,9 @@ function index($request)
 
 function login($request, $vars)
 {
+	$str = "foo@example.com";
+	$estr = \pangolin\encrypt($str);
+	echo($str . " : " . $estr . " : " . \pangolin\decrypt(urlencode($estr)));
 	$template = new \pangolin\Template;
 	$template->assign("status", $vars['status']);
 	$template->assign("loggedIn", (loggedIn()) ? getLoggedInUser() : false);
@@ -51,9 +54,25 @@ function dologin($request)
 		$_SESSION['id'] = $user[0]->id;
 		header("Location: /");
 	}
-	else
+	elseif ($user[0])
 	{
 		header("Location: /login/failed");
+	}
+	else
+	{
+		$user = new User();
+		$user->email = $pv['email'];
+		$user->password = md5($pv['password']);
+		try
+		{
+			$id = $user->create();
+			header("Location: /register/" . \pangolin\encrypt($id));
+		}
+		catch (\Exception $e)
+		{
+			\pangolin\set_http_response_code(500);
+			die($e->getMessage());
+		}
 	}
 }
 
@@ -63,10 +82,20 @@ function dologout($request)
 	header("Location: /");
 }
 
+function register($request, $vars)
+{
+	$id = \pangolin\decrypt($vars['id']);
+	$user = User::getId($id);
+	$template = new \pangolin\Template;
+	$template->assign("email", $user->email);
+	$template->assign("loggedIn", (loggedIn()) ? getLoggedInUser() : false);
+	$template->render("register");
+}
+
 function doregister($request)
 {
 	$pv = $request->getVars();
-	$user = new User;
+	$user = User::getId($pv['id']);
 	if ($user[0] && $user[0]->password == md5($pv['password']))
 	{
 		$_SESSION['email'] = $pv['email'];

@@ -61,3 +61,15 @@ function set_http_response_code($code)
 
 	$GLOBALS['http_response_code'] = $code;
 }
+
+function encrypt($text)
+{
+	global $cryptsalt;
+	return base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($cryptsalt), $text, MCRYPT_MODE_CBC, md5(md5($cryptsalt))));
+}
+
+function decrypt($text)
+{
+	global $cryptsalt;
+	return rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($cryptsalt), base64_decode($text), MCRYPT_MODE_CBC, md5(md5($cryptsalt))), "\0");
+}

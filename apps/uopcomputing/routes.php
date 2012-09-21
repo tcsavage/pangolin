@@ -10,6 +10,7 @@ function routes()
 		"login" => "\\uopcomputing\\login",
 		"login/do" => "\\uopcomputing\\dologin",
 		"login/{status}" => "\\uopcomputing\\login",
+		"register/{id}" => "\\uopcomputing\\register",
 		"logout" => "\\uopcomputing\\dologout"
 	);
 }
